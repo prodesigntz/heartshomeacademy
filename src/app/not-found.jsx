@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function NotFound() {
-  return (
-    <div>not-found</div>
-  )
+  return <section className="">not-found</section>;
 }

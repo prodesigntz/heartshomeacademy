@@ -2,7 +2,10 @@
   @tailwind components;
   @tailwind utilities;
 
-
+ /* color codes */
+ /* hearts-primary: 226, 76%, 23% ; */
+ /* hearts-secondary: 4, 86%, 49% ; */
+ 
   @layer base {
     :root {
       --background: 0 0% 100%;
@@ -25,6 +28,8 @@
       --input: 214.3 31.8% 91.4%;
       --ring: 221.2 83.2% 53.3%;
       --radius: 0.75rem;
+      --hearts-primary: 226, 76%, 23% ;
+      --hearts-secondary: 4, 86%, 49% ; 
     }
   
     .dark {
@@ -47,6 +52,9 @@
       --border: 217.2 32.6% 17.5%;
       --input: 217.2 32.6% 17.5%;
       --ring: 224.3 76.3% 48%;
+      
+      --hearts-primary: 226, 76%, 23% ;
+      --hearts-secondary: 4, 86%, 49% ; 
     }
   }
   
@@ -61,7 +69,7 @@
   }
 
   .respons{
-    @apply container mx-auto;
+    @apply container mx-auto ;
   }
 
   .sektion {
