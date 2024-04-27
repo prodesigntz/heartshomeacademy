@@ -68,7 +68,11 @@
     }
   }
 
-  .respons{
+  .fredoka{
+    font-family: var(--font-fredoka)
+  }
+
+  .respons {
     @apply container mx-auto ;
   }
 
@@ -83,3 +87,9 @@
   .psektion {
     @apply  py-10 md:py-20;
   }
+
+  .bg-heroImage {
+    background-image: url("/img/hero/bghero.jpg");
+    background-size: cover;
+    background-position: center;
+  }  

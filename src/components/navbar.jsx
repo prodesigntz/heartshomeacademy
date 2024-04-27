@@ -6,10 +6,12 @@ import { Button } from "./ui/button";
 
 export default function NavBar() {
   return (
-    <nav className="respons ">
-      <div className="py-5">Top</div>
-      <div className=" py-5 md:py-8 px-5 bg-slate-200 rounded-full">
-        <div className="flex items-center justify-between">
+    <nav className="bg-slate-200 shadow-md">
+      <div className="py-2 bg-heartsprimary ">
+        <div className="respons">Top</div>
+      </div>
+      <div className=" py-5 md:py-8 px-5 ">
+        <div className="respons flex items-center justify-between">
           {/* logo  */}
           <div className="font-bold"> HEARTS HOME ACADEMY</div>
           {/* webHeader  */}
@@ -28,7 +30,7 @@ export default function NavBar() {
           </div>
 
           {/* button */}
-          <div className="">
+          <div className="hidden md:block">
             <Button
               variant="hearts-primary"
               className="rounded-full bg-heartsprimary text-white"
