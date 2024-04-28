@@ -20,6 +20,7 @@ module.exports = {
       colors: {
         heartsprimary: "hsl(var(--hearts-primary))",
         heartssecondary: "hsl(var(--hearts-secondary))",
+        heartstertiary: "hsl(var(--hearts-tertiary))", 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

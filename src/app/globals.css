@@ -54,7 +54,8 @@
       --ring: 224.3 76.3% 48%;
       
       --hearts-primary: 226, 76%, 23% ;
-      --hearts-secondary: 4, 86%, 49% ; 
+      --hearts-secondary: 4, 86%, 49% ;
+      --hearts-tertiary:27, 92%, 95%; 
     }
   }
   
@@ -90,6 +91,12 @@
 
   .bg-heroImage {
     background-image: url("/img/hero/bghero.jpg");
+    background-size: cover;
+    background-position: center;
+  }  
+
+  .bg-clouds {
+    background-image: url("/images/fontfed/wavecloud.png");
     background-size: cover;
     background-position: center;
   }  
