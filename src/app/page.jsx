@@ -1,6 +1,6 @@
 import NavBar from "@/components/navbar";
 import Landing from "./(pages)/home/page";
-import Footer from "@/components/footer";
+import { Footer } from "@/components/footer";
 
 export const metadata = {
   title: "Hearts Home Academy",

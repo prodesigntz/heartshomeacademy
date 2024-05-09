@@ -3,12 +3,23 @@ import React from "react";
 import { MobileNav } from "./mobilenav";
 import { menuData } from "@/data/menuData";
 import { Button } from "./ui/button";
+import Socialmedias from "./socialmedias";
+import { FaPhone, FaPhoneAlt } from "react-icons/fa";
 
 export default function NavBar() {
   return (
     <nav className="bg-slate-200 shadow-md">
-      <div className="py-2 bg-heartsprimary ">
-        <div className="respons">Top</div>
+      <div className="py-2 bg-heartsprimary text-white">
+        <div className="hidden md:flex md:items-center md:justify-between respons">
+          <div className="text-sm">info@heartshomeacademy.sc.tz</div>
+          <div className="text-sm"> 
+            <Link href="/" className="flex items-center space-x-2 font-semibold"> 
+                <FaPhoneAlt className="text-xl" /> <p>+255 755 902 861</p>    
+            
+            </Link>
+          </div>
+          <div className="text-sm"> <Socialmedias/></div>
+        </div>
       </div>
       <div className=" py-5 md:py-8 px-5 ">
         <div className="respons flex items-center justify-between">

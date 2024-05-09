@@ -20,7 +20,7 @@ export default function Home() {
       <Accomplishment/>
       <Facilities/>    
       <Gallery/>
-      <Testimonial/>
+      {/* <Testimonial/> */}
       <BlogSection/>
       <Subscription/>
     </main>

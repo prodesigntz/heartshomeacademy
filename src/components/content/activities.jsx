@@ -7,16 +7,16 @@ export default function Activities() {
   return (
     <section className="psektion ">
       <div className="respons sektion md:grid-cols-3">
-        <div className=''>
+        <div className='md:px-5'>
         <Title
               place="start"
-              subHeading="Education Programs"
-              first="Step By Step Systematic Education"
+              subHeading="Activity Programs"
+              first="Smart Activities"
             />
             <HomeParagraph 
                 place="center" 
                 content="Lorem ipsum dolor sit amet consectetur adipisicing elit."/>
-             <div className=" flex items-center md:justify-center">
+             <div className=" flex items-center ">
                 <Button className="rounded-full text-center text-lg p-6 bg-heartssecondary">View More</Button>
             </div>  
             </div>

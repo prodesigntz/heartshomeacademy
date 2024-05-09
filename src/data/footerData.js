@@ -7,8 +7,8 @@ export const footerData = [
           link: "/about",
         },
         {
-          name: "Services",
-          link: "/services",
+          name: "Programs",
+          link: "/programs",
         },
       
         {
