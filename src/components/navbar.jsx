@@ -32,10 +32,12 @@ export default function NavBar() {
           {/* button */}
           <div className="hidden md:block">
             <Button
+              asChild
               variant="hearts-primary"
               className="rounded-full bg-heartsprimary text-white"
             >
-              Get Inquiry
+              <Link href="/inquiry"> Get Inquiry</Link>
+             
             </Button>
           </div>
           <MobileNav />

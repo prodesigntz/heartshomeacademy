@@ -5,7 +5,7 @@ export const HeaderTitle = ({ first, last, subHeading, place }) => {
     <div className="flex flex-col">
       <h5 className={`text-sm pb-5 text-center md:text-${place}`}>{subHeading}</h5>
       <h1
-        className={`font-bold fredoka text-center md:text-${place} text-2xl  md:text-6xl pb-4`}
+        className={`font-bold fredoka text-center md:text-start text-2xl  md:text-6xl pb-4`}
       >
         <span>{first}</span>
         &nbsp;

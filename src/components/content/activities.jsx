@@ -21,6 +21,7 @@ export default function Activities() {
             </div>  
             </div>
         <div className='col-span-2 '>
+          <div className='md:pt-10'></div>
           <div className="sektion md:grid-cols-3">
             <div className='shadow-md flex flex-col p-5 space-y-5 text-center'>
               <div>images here</div>

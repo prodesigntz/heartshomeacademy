@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function About() {
+export default function Inquiry() {
   return (
     <main className='psektion'>
-      <p>About</p>
+      Inquiry
     </main>
   )
 }
