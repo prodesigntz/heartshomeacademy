@@ -1,6 +1,7 @@
 import React from 'react'
 import { HomeParagraph, Title } from '../texties'
 import { Button } from '../ui/button'
+import Image from 'next/image'
 
 export default function Programs() {
   return (
@@ -26,8 +27,20 @@ export default function Programs() {
           <div className="flex flex-col space-y-10">
             <div className="sektion md:grid-cols-3">
               {/* card one */}
-              <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md">
-                <div className="">1</div>   
+              <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
+                <div className="">
+                 <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={280}
+                    height={260}
+                    style={{
+                      maxWidth: "100%",
+                      height: "160px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>   
                 <div className="flex flex-col space-y-3">
                   <h2 className="text-2xl fredoka">Infants</h2>
                   <h3 className="">6 - 24 Months</h3>
@@ -35,16 +48,48 @@ export default function Programs() {
                 </div>
               </div>
              
-              {/* card one */} 
-              <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md">
-                <div className="">1</div>
-                <div className="">2</div>
+          {/* card one */}
+              <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
+                <div className="">
+                 <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={280}
+                    height={260}
+                    style={{
+                      maxWidth: "100%",
+                      height: "160px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>   
+                <div className="flex flex-col space-y-3">
+                  <h2 className="text-2xl fredoka">Infants</h2>
+                  <h3 className="">6 - 24 Months</h3>
+                  <p className="">Eu turpis egestas pretium aenean pharetra magna ac.</p>
+                </div>
               </div>
             
-              {/* card one */}
-              <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md">
-                <div className="">1</div>
-                <div className="">2</div>
+            {/* card one */}
+              <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
+                <div className="">
+                 <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={280}
+                    height={260}
+                    style={{
+                      maxWidth: "100%",
+                      height: "160px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>   
+                <div className="flex flex-col space-y-3">
+                  <h2 className="text-2xl fredoka">Infants</h2>
+                  <h3 className="">6 - 24 Months</h3>
+                  <p className="">Eu turpis egestas pretium aenean pharetra magna ac.</p>
+                </div>
               </div>
             </div>
             <div className=" flex items-center justify-center">

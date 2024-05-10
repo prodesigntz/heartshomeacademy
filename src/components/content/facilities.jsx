@@ -1,6 +1,7 @@
 import React from 'react'
 import { HomeParagraph, Title } from '../texties'
 import { Button } from '../ui/button'
+import Image from 'next/image'
 
 export default function Facilities() {
   return (
@@ -23,39 +24,90 @@ export default function Facilities() {
 
         {/* bottom collumn */}
         <div className="sektion md:grid-cols-4">
-            <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
-              <div>images here</div>
+         {/* card sectrion */}
+         <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
+             <div>   
+               <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={1000}
+                    height={240}
+                    style={{
+                      maxWidth: "100%",
+                      height: "220px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>
               <div>
-                <h3 className='font-semibold fredoka text-xl '>Class Rooms</h3>
-              </div>
-              <div>
-                <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
-              </div> 
-     
-            </div>
-
-            <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
-              <div>images here</div>
-              <div>
-                <h3 className='font-semibold fredoka text-xl '>Transport</h3>
-              </div>
-              <div>
-                <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
-              </div> 
-            </div>
-
-            <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
-             <div>images here</div>
-              <div>
-                <h3 className='font-semibold fredoka text-xl '>Play Area</h3>
+                <h3 className='font-semibold fredoka text-xl '>Healthy Foods</h3>
               </div>
               <div>
                 <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
               </div> 
             </div>
 
+             {/* card sectrion */}
+             <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
+             <div>   
+               <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={1000}
+                    height={240}
+                    style={{
+                      maxWidth: "100%",
+                      height: "220px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>
+              <div>
+                <h3 className='font-semibold fredoka text-xl '>Transportation</h3>
+              </div>
+              <div>
+                <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
+              </div> 
+            </div>
+
+             {/* card sectrion */}
+             <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
+             <div>   
+               <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={1000}
+                    height={240}
+                    style={{
+                      maxWidth: "100%",
+                      height: "220px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>
+              <div>
+                <h3 className='font-semibold fredoka text-xl '>Healthy Foods</h3>
+              </div>
+              <div>
+                <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
+              </div> 
+            </div>
+
+          {/* card sectrion */}
             <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
-             <div>images here</div>
+             <div>   
+               <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={1000}
+                    height={240}
+                    style={{
+                      maxWidth: "100%",
+                      height: "220px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>
               <div>
                 <h3 className='font-semibold fredoka text-xl '>Healthy Foods</h3>
               </div>

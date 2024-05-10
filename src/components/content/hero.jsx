@@ -5,8 +5,8 @@ import { Button } from "../ui/button";
 export default function Hero() {
   return (
     <section className="psektion text-white bg-[url('/images/heros/bghero.jpg')] bg-cover bg-center  bg-slate-700 bg-blend-overlay bg-no-repeat">
-      <div className="respons sektion md:grid-cols-2">
-        <div>
+      <div className="respons sektion md:grid-cols-2 md:py-10">
+        <div className="">
           <HeaderTitle
            place="start"
             subHeading="Building Blocks for Dreams"

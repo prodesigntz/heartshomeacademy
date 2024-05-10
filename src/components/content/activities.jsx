@@ -2,6 +2,7 @@
 import React from 'react'
 import { HomeParagraph, Title } from '../texties'
 import { Button } from '../ui/button'
+import Image from 'next/image'
 
 export default function Activities() {
   return (
@@ -23,8 +24,22 @@ export default function Activities() {
         <div className='col-span-2 '>
           <div className='md:pt-10'></div>
           <div className="sektion md:grid-cols-3">
+
+            {/* Card one */}
             <div className='shadow-md flex flex-col p-5 space-y-5 text-center'>
-              <div>images here</div>
+              <div>      
+                 <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={1000}
+                    height={240}
+                    style={{
+                      maxWidth: "100%",
+                      height: "220px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>
               <div>
                 <h3 className='font-semibold fredoka text-xl '>Physical Activities</h3>
               </div>
@@ -32,8 +47,22 @@ export default function Activities() {
                 <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
               </div> 
             </div>
+
+           {/* Card one */}
             <div className='shadow-md flex flex-col p-5 space-y-5 text-center'>
-              <div>images here</div>
+              <div>    
+                 <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={1000}
+                    height={240}
+                    style={{
+                      maxWidth: "100%",
+                      height: "220px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>
               <div>
                 <h3 className='font-semibold fredoka text-xl '>Team Activities</h3>
               </div>
@@ -41,8 +70,22 @@ export default function Activities() {
                 <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
               </div> 
             </div>
+
+            {/* Card one */}
             <div className='shadow-md flex flex-col p-5 space-y-5 text-center'>
-              <div>images here</div>
+              <div>    
+                 <Image
+                    src="/images/heros/bghero.jpg"
+                    alt="blog"
+                    width={1000}
+                    height={240}
+                    style={{
+                      maxWidth: "100%",
+                      height: "220px",
+                      objectFit: "cover",
+                    }}
+                    className=" max-w-full max-h-50 rounded-md"
+                  /></div>
               <div>
                 <h3 className='font-semibold fredoka text-xl '>Individual Activities</h3>
               </div>
