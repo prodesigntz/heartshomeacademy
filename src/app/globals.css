@@ -4,12 +4,13 @@
 
 
   /* Instead of Google Fonts, use jsDelivr */
-@import url('https://cdn.jsdelivr.net/npm/@fontsource/fredoka/index.css');
-@import url('https://cdn.jsdelivr.net/npm/@fontsource/inter/index.css');
+/* @import url('https://cdn.jsdelivr.net/npm/@fontsource/fredoka/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/inter/index.css'); */
 
  /* color codes */
- /* hearts-primary: 226, 76%, 23% ; */
- /* hearts-secondary: 4, 86%, 49% ; */
+ /* hearts-primary: 226, 76%, 23% ; #0e2367 */
+ /* hearts-secondary: 4, 86%, 49% ; #e82011 */
+ /* #e2e8f0 */
  
   @layer base {
     :root {

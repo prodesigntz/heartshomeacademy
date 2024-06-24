@@ -4,7 +4,14 @@ import Image from 'next/image';
 
 export default function Gallery() {
   return (
-    <section className="psektion bg-slate-200 space-y-5">
+    <section className="relative psektion bg-slate-200 space-y-5">
+      {/* <div className="absolute left-0 right-0 -top-8 p-10 bg-red-500 bg-[url('/waves/wave-gallerytop.png')] bg-cover bg-center "></div> */}
+      <Image
+        src="/waves/wave-gallerytop.png"
+        alt="blog"
+        fill
+        className="absolute left-0 right-0 -top-8  object-fill w-full max-h-10 rounded-none"
+      />
       <div className="respons">
         {/* top column */}
         <div className="sektion md:grid-cols-3">
@@ -162,6 +169,12 @@ export default function Gallery() {
           </div>
         </div>
       </div>
+      <Image
+        src="/waves/wave-gallerybottom.png"
+        alt="blog"
+        fill
+        className="absolute left-0 right-0 -bottom-8  object-fill w-full max-h-10 rounded-none"
+      />
     </section>
   );
 }

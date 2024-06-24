@@ -59,6 +59,34 @@ export const FacilitiesCards=({ src, title, desc })=> {
   );
 }
 
+export const TeamCards = ({ src, title, desc }) => {
+  return (
+    <div className="shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 hover:rounded-md duration-300 ">
+      <div>
+        <Image
+          src={src}
+          alt="blog"
+          width={1000}
+          height={240}
+          style={{
+            maxWidth: "100%",
+            height: "220px",
+            objectFit: "cover",
+          }}
+          className=" max-w-full max-h-50 rounded-md"
+        />
+      </div>
+      <div>
+        <h3 className="font-semibold fredoka text-xl ">{title}</h3>
+      </div>
+      <div>
+        <p className="">{desc}</p>
+      </div>
+    </div>
+  );
+};
+
+
 export const BlogCards = ({ href,src,shortDesc, title }) => {
   return (
     <div className="rounded-3xl p-10 bg-white shadow-md">
