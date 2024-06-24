@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { blogData } from '@/data/blogData';
 import Image from 'next/image';

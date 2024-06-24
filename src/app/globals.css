@@ -2,6 +2,11 @@
   @tailwind components;
   @tailwind utilities;
 
+
+  /* Instead of Google Fonts, use jsDelivr */
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/fredoka/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/inter/index.css');
+
  /* color codes */
  /* hearts-primary: 226, 76%, 23% ; */
  /* hearts-secondary: 4, 86%, 49% ; */
@@ -68,6 +73,15 @@
       @apply bg-background text-foreground;
     }
   }
+
+
+  @font-face {
+  font-family: 'Fredoka';
+  src: url('/fonts/Fredoka/Fredoka-VariableFont_wdth,wght.ttf') format('ttf');
+  font-weight: 300 700;
+  font-display: swap;
+}
+
 
   .slick-slide div {
     margin: 5px;

@@ -1,6 +1,6 @@
-import React from 'react'
-import { HomeParagraph, Title } from '../texties'
-import { Button } from '../ui/button'
+import React from 'react';
+import { HomeParagraph, Title } from '../texties';
+import { Button } from '../ui/button';
 import { BlogCards } from "../cards";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,14 +11,11 @@ import Link from 'next/link';
 export default function BlogSection() {
      const settings = {
        dots: true,
-       //  autoplay: true,
        speed: 2000,
        autoplaySpeed: 2000,
-       //  infinite: true,
        slidesToShow: 3,
        slidesToScroll: 3,
        initialSlide: 0,
-       //arrows: false,
 
        responsive: [
          {
@@ -26,7 +23,6 @@ export default function BlogSection() {
            settings: {
              slidesToShow: 3,
              slidesToScroll: 3,
-             //infinite: true,
              dots: true,
            },
          },
