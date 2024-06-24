@@ -1,9 +1,7 @@
 import React from 'react'
 import { HomeParagraph, Title } from '../texties'
 import { Button } from '../ui/button'
-import Image from 'next/image'
-import { ActivitiesCards, BlogCards } from "../cards";
-import { activitiesData } from "@/data/activities";
+import { BlogCards } from "../cards";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";

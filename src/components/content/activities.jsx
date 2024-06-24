@@ -2,7 +2,6 @@
 import React from 'react'
 import { HomeParagraph, Title } from '../texties'
 import { Button } from '../ui/button'
-import Image from 'next/image'
 import { ActivitiesCards } from '../cards';
 import { activitiesData} from "@/data/activities"
 import "slick-carousel/slick/slick.css";

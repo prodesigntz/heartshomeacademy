@@ -6,8 +6,6 @@ import Gallery from "@/components/content/gallery";
 import Hero from "@/components/content/hero";
 import Intro from "@/components/content/intro";
 import Programs from "@/components/content/programs";
-import Subscription from "@/components/content/subscription";
-//import Testimonial from "@/components/content/testimonial";
 import React from "react";
 
 export default function Home() {
