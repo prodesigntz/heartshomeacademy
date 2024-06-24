@@ -22,7 +22,7 @@ export default function Home() {
       <Gallery/>
       {/* <Testimonial/> */}
       <BlogSection/>
-      <Subscription/>
+      {/* <Subscription/> */}
     </main>
     );
 }

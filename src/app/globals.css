@@ -69,9 +69,20 @@
     }
   }
 
+  .slick-slide div {
+    margin: 5px;
+  }
+
+  .slick-arrow:before{
+    color: brown;
+    font-size: small;
+  }
+  
   .fredoka{
     font-family: var(--font-fredoka)
   }
+
+
 
   .respons {
     @apply container mx-auto ;

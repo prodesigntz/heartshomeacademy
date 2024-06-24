@@ -1,121 +1,108 @@
 import React from 'react'
 import { HomeParagraph, Title } from '../texties'
-import { Button } from '../ui/button'
-import Image from 'next/image'
+import { FacilitiesCards } from '../cards'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { facilitiesData } from '@/data/facilitiesData'
+import Image from 'next/image';
 
 export default function Facilities() {
+   const settings = {
+     dots: true,
+     //  autoplay: true,
+     speed: 2000,
+     autoplaySpeed: 2000,
+     //  infinite: true,
+     slidesToShow: 4,
+     slidesToScroll: 4,
+     initialSlide: 0,
+
+     responsive: [
+       {
+         breakpoint: 1024,
+         settings: {
+           slidesToShow: 3,
+           slidesToScroll: 3,
+           //infinite: true,
+           dots: true,
+         },
+       },
+       {
+         breakpoint: 600,
+         settings: {
+           slidesToShow: 2,
+           slidesToScroll: 2,
+           initialSlide: 2,
+         },
+       },
+       {
+         breakpoint: 480,
+         settings: {
+           slidesToShow: 1,
+           slidesToScroll: 1,
+         },
+       },
+     ],
+   };
   return (
-    <section className='psektion respons space-y-10'>
-         {/* top column */}
-         <div className="sektion md:grid-cols-3">
-          <div>gif</div>
-          <div>
-          <Title
-              place=""
-              subHeading="School Facilities"
-              first="Engaging & Spacious School Campus"
-            />
-            <HomeParagraph place="center" content=" 
-            Lorem ipsum dolor sit amet consectetur adipisicing elit."/>
-            
-          </div>
-          <div>image</div>
+    <section className="psektion respons space-y-10 ">
+      {/* top column */}
+      <div className="sektion md:grid-cols-3">
+        <div
+          className="hidden md:grid place-content-center"
+          data-aos="fade-right"
+        >
+          <Image
+            src="/images/fontfed/icon-baby-girl-diving.png"
+            alt="blog"
+            height="120"
+            width="120"
+            className="object-contain max-w-full max-h-40 rounded-md"
+          />
         </div>
 
-        {/* bottom collumn */}
-        <div className="sektion md:grid-cols-4">
-         {/* card sectrion */}
-         <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
-             <div>   
-               <Image
-                    src="/images/heros/bghero.jpg"
-                    alt="blog"
-                    width={1000}
-                    height={240}
-                    style={{
-                      maxWidth: "100%",
-                      height: "220px",
-                      objectFit: "cover",
-                    }}
-                    className=" max-w-full max-h-50 rounded-md"
-                  /></div>
-              <div>
-                <h3 className='font-semibold fredoka text-xl '>Healthy Foods</h3>
-              </div>
-              <div>
-                <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
-              </div> 
-            </div>
+        <div>
+          <Title
+            place=""
+            subHeading="School Facilities"
+            first="Engaging & Spacious School Campus"
+          />
+          <HomeParagraph
+            place="center"
+            content=" 
+            Lorem ipsum dolor sit amet consectetur adipisicing elit."
+          />
+        </div>
 
-             {/* card sectrion */}
-             <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
-             <div>   
-               <Image
-                    src="/images/heros/bghero.jpg"
-                    alt="blog"
-                    width={1000}
-                    height={240}
-                    style={{
-                      maxWidth: "100%",
-                      height: "220px",
-                      objectFit: "cover",
-                    }}
-                    className=" max-w-full max-h-50 rounded-md"
-                  /></div>
-              <div>
-                <h3 className='font-semibold fredoka text-xl '>Transportation</h3>
-              </div>
-              <div>
-                <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
-              </div> 
-            </div>
+        <div
+          className="hidden md:grid place-content-center"
+          data-aos="fade-left"
+        >
+          <Image
+            src="/images/fontfed/cycle-play.png"
+            alt="blog"
+            height="120"
+            width="120"
+            className="object-contain max-w-full max-h-40 rounded-md"
+          />
+        </div>
+      </div>
 
-             {/* card sectrion */}
-             <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
-             <div>   
-               <Image
-                    src="/images/heros/bghero.jpg"
-                    alt="blog"
-                    width={1000}
-                    height={240}
-                    style={{
-                      maxWidth: "100%",
-                      height: "220px",
-                      objectFit: "cover",
-                    }}
-                    className=" max-w-full max-h-50 rounded-md"
-                  /></div>
-              <div>
-                <h3 className='font-semibold fredoka text-xl '>Healthy Foods</h3>
-              </div>
-              <div>
-                <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
-              </div> 
-            </div>
-
-          {/* card sectrion */}
-            <div className='shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:rounded-md duration-300 '>
-             <div>   
-               <Image
-                    src="/images/heros/bghero.jpg"
-                    alt="blog"
-                    width={1000}
-                    height={240}
-                    style={{
-                      maxWidth: "100%",
-                      height: "220px",
-                      objectFit: "cover",
-                    }}
-                    className=" max-w-full max-h-50 rounded-md"
-                  /></div>
-              <div>
-                <h3 className='font-semibold fredoka text-xl '>Healthy Foods</h3>
-              </div>
-              <div>
-                <p className=''>Lorem spatum sed pulvar gravida hendrerit lectusa. Sed nisi lacus sed viverra.</p>
-              </div> 
-            </div>
-          </div>
+      {/* bottom collumn */}
+      <div className="slider-container">
+        <Slider {...settings}>
+          {facilitiesData.map((facility, id) => (
+            <FacilitiesCards
+              key={id}
+              src={facility.img}
+              title={facility.title}
+              desc={facility.desc}
+              data-aos="zoom-in" // Adding AOS animation to each card
+            />
+          ))}
+        </Slider>
+      </div>
     </section>
-  )
+  );
 }
