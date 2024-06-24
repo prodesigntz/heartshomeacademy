@@ -55,7 +55,7 @@ export default function BlogSection() {
       <div className="respons">
         {/* top column */}
         <div className="sektion md:grid-cols-3">
-          <div>gif</div>
+          <div></div>
           <div>
             <Title place="" subHeading="Blogs" first="Get Our Updates" />
             <HomeParagraph
@@ -64,7 +64,7 @@ export default function BlogSection() {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit."
             />
           </div>
-          <div>image</div>
+          <div></div>
         </div>
 
         {/* bottom column */}

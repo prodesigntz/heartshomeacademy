@@ -8,7 +8,18 @@ export default function Gallery() {
       <div className="respons">
         {/* top column */}
         <div className="sektion md:grid-cols-3">
-          <div>gif</div>
+          <div
+            className="hidden md:grid place-content-center "
+            data-aos="fade-right"
+          >
+            <Image
+              src="/images/fontfed/jump-kid.png"
+              alt="blog"
+              height="120"
+              width="120"
+              className="object-contain max-w-full max-h-40 rounded-md"
+            />
+          </div>
           <div>
             <Title
               place=""
@@ -21,7 +32,18 @@ export default function Gallery() {
             Lorem ipsum dolor sit amet consectetur adipisicing elit."
             />
           </div>
-          <div>image</div>
+          <div
+            className="hidden md:grid place-content-center "
+            data-aos="fade-left"
+          >
+            <Image
+              src="/images/fontfed/playing_wally_ball_boy.png"
+              alt="blog"
+              height="120"
+              width="120"
+              className="object-contain max-w-full max-h-40 rounded-md"
+            />
+          </div>
         </div>
 
         {/* grids auto cols */}
