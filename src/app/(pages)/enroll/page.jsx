@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React from 'react'
 
-export default function Inquiry() {
+export default function Enroll() {
   return (
     <main className="psektion  bg-gradient-to-t from-[#ffefe2] to-white">
       <div className="respons p-6 bg-white shadow-md rounded-md">

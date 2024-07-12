@@ -4,7 +4,7 @@ import { MobileNav } from "./mobilenav";
 import { menuData } from "@/data/menuData";
 import { Button } from "./ui/button";
 import Socialmedias from "./socialmedias";
-import { FaPhone, FaPhoneAlt } from "react-icons/fa";
+import { FaPhoneAlt } from "react-icons/fa";
 
 export default function NavBar() {
   return (
@@ -47,7 +47,7 @@ export default function NavBar() {
               variant="hearts-primary"
               className="rounded-full bg-heartsprimary text-white"
             >
-              <Link href="/inquiry"> Get Inquiry</Link>
+              <Link href="/enroll">Enroll</Link>
              
             </Button>
           </div>

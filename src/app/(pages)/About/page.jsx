@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
+import { FaBaby } from 'react-icons/fa6';
 
 export default function About() {
   return (
@@ -64,7 +65,7 @@ export default function About() {
         <div className="sektion md:grid-cols-3">
           {/* card one */}
           <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
-            <div className="">
+            {/* <div className="">
               <Image
                 src="/images/heros/bghero.jpg"
                 alt="blog"
@@ -77,12 +78,24 @@ export default function About() {
                 }}
                 className=" max-w-full max-h-50 rounded-md"
               />
-            </div>
+            </div> */}
             <div className="flex flex-col space-y-3">
-              <h2 className="text-2xl fredoka">Infants</h2>
-              <h3 className="">6 - 24 Months</h3>
-              <p className="">
-                Eu turpis egestas pretium aenean pharetra magna ac.
+              <div className="flex items-center">
+                <div>
+                  <FaBaby className="text-3xl"/>
+                </div>
+                <div>
+                  <h2 className="text-2xl fredoka">1</h2>
+                  <h3 className="font-bold fredoka">
+                    Nurturing Curiosity and Creativity
+                  </h3>
+                </div>
+              </div>
+              <p className="text-sm">
+                We believe in fostering a love for learning by nurturing
+                curiosity and creativity in every child. We provide a
+                stimulating environment where children are encouraged to
+                explore, ask questions, and express their ideas freely.
               </p>
             </div>
           </div>

@@ -1,13 +1,9 @@
 import { footerData } from "@/data/footerData";
 import Link from "next/link";
 import React from "react";
-//import { Input } from "@/components/ui/input";
-import { FaEnvelope } from "react-icons/fa";
-import { RiInstagramFill } from "react-icons/ri";
-import { FaSquareXTwitter } from "react-icons/fa6";
-import { FaFacebookSquare } from "react-icons/fa";
 import { Button } from "./ui/button";
 import Socialmedias from "./socialmedias";
+import { Input } from "./ui/input";
 
 export const Footer = () => {
   return (
@@ -22,6 +18,12 @@ export const Footer = () => {
           </h5>
           <h5 className="pt-2 ">
             {new Date().getFullYear()} © Copyright Hearts Home Academy.
+          </h5>
+          <h5 className="pt-2 space-x-2 text-sm">
+            <span>Developed by</span>
+            <span>
+              <Link href="https://prodesign.co.tz" className="hover:text-red-600">Pro DesignTZ</Link>
+            </span>
           </h5>
         </div>
         <div className="text-slate-200">
@@ -45,19 +47,28 @@ export const Footer = () => {
           <h5 className="font-bold text-xl ">Get in Touch</h5>
           <h4>Subscribe our Newsletter</h4>
           <div className="flex items-center justify-between space-x-2">
-            {/* <Input
+            <Input
               type="email"
               placeholder="Email"
               className="w-full max-w-sm"
-            /> */}
-            <Button type="submit" className="bg-heartshomeacademy flex items-center">
+            />
+            <Button
+              type="submit"
+              className="bg-heartshomeacademy flex items-center"
+            >
               {/* <FaEnvelope /> */}
-               Subscribe
+              Subscribe
             </Button>
           </div>
-           <Socialmedias/>         
+          <Socialmedias />
         </div>
       </div>
+      {/* 
+      <div className="py-5 respons sektion md:grid-cols-3 text-center">
+        <div></div>
+        
+        <div></div>
+      </div> */}
     </section>
   );
 };
