@@ -8,7 +8,7 @@ import Intro from "@/components/content/intro";
 import Programs from "@/components/content/programs";
 import React from "react";
 
-export default function Home() {
+export default function page() {
   return (
     <main>
       <Hero/>
@@ -23,4 +23,4 @@ export default function Home() {
       {/* <Subscription/> */}
     </main>
     );
-}
+} 

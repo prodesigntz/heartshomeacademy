@@ -65,20 +65,7 @@ export default function About() {
         <div className="sektion md:grid-cols-3">
           {/* card one */}
           <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
-            {/* <div className="">
-              <Image
-                src="/images/heros/bghero.jpg"
-                alt="blog"
-                width={280}
-                height={260}
-                style={{
-                  maxWidth: "100%",
-                  height: "160px",
-                  objectFit: "cover",
-                }}
-                className=" max-w-full max-h-50 rounded-md"
-              />
-            </div> */}
+           
             <div className="flex flex-col space-y-3">
               <div className="flex items-center">
                 <div>

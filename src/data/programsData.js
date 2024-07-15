@@ -1,0 +1,63 @@
+export const programData = [
+  {
+    src: "https://example.com/images/infant_care.jpg",
+    alt: "Caregiver holding an infant",
+    title: "Infant Care",
+    age: "5-12 months",
+    desc: "This program provides nurturing care for infants, focusing on their physical and emotional development.",
+    activities: ["Sensory play", "Tummy time", "Music and lullabies"],
+    slug: "infant-care",
+  },
+  {
+    src: "https://example.com/images/toddler_exploration.jpg",
+    alt: "Toddlers exploring toys",
+    title: "Toddler Exploration",
+    age: "1-2 years",
+    desc: "An engaging program for toddlers that encourages exploration and development through play.",
+    activities: [
+      "Building blocks",
+      "Simple puzzles",
+      "Interactive storytelling",
+    ],
+    slug: "toddler-exploration",
+  },
+  {
+    src: "https://example.com/images/preschool_discovery.jpg",
+    alt: "Preschool children discovering new things",
+    title: "Preschool Discovery",
+    age: "2-3 years",
+    desc: "A program designed to foster curiosity and learning through a variety of hands-on activities.",
+    activities: [
+      "Color and shape recognition",
+      "Counting games",
+      "Outdoor play",
+    ],
+    slug: "preschool-discovery",
+  },
+  {
+    src: "https://example.com/images/pre_k_learning.jpg",
+    alt: "Pre-K children engaged in learning activities",
+    title: "Pre-K Learning",
+    age: "3-4 years",
+    desc: "This program prepares children for kindergarten with a focus on early literacy, math, and social skills.",
+    activities: [
+      "Letter recognition",
+      "Simple math exercises",
+      "Group activities",
+    ],
+    slug: "pre-k-learning",
+  },
+  {
+    src: "https://example.com/images/kindergarten_prep.jpg",
+    alt: "Children preparing for kindergarten",
+    title: "Kindergarten Prep",
+    age: "4-5 years",
+    desc: "A comprehensive program that prepares children for the transition to kindergarten through advanced learning activities.",
+    activities: [
+      "Reading practice",
+      "Basic science experiments",
+      "Art and craft projects",
+    ],
+    slug: "kindergarten-prep",
+  },
+];

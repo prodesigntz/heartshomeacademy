@@ -112,3 +112,29 @@ export const BlogCards = ({ href,src,shortDesc, title }) => {
     </div>
   );
 };
+
+export const ProgramsCard = ({src, alt, title, age, desc, href}) => {
+  return (
+    <Link href={href} className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
+      <div className="">
+        <Image
+          src={src}
+          alt={alt}
+          width={280}
+          height={260}
+          style={{
+            maxWidth: "100%",
+            height: "160px",
+            objectFit: "cover",
+          }}
+          className="max-w-full max-h-50 rounded-md"
+        />
+      </div>
+      <div className="flex flex-col space-y-3">
+        <h2 className="text-2xl fredoka"> <Link href={href}>{title}</Link> </h2>
+        <h3 className="">{age}</h3>
+        <p className="">{desc}</p>
+      </div>
+    </Link>
+  );
+}

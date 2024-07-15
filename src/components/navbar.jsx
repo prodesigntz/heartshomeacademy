@@ -15,7 +15,7 @@ export default function NavBar() {
           <div className="text-sm"> 
             <Link href="/" className="flex items-center space-x-2 font-semibold"> 
                 <FaPhoneAlt className="text-xl" /> <p>+255 755 902 861</p>    
-            
+           
             </Link>
           </div>
           <div className="text-sm"> <Socialmedias/></div>

@@ -1,7 +1,9 @@
 import { Inter, Fredoka } from "next/font/google";
-import "./globals.css";
+//import "./globals.css";
+import "../globals.css";
 import NavBar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { AppContextProvider } from "@/context/AppContext";
 
 // Fonts inputs
 const inter = Inter({ subsets: ["latin"] });
@@ -19,14 +21,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-    
-      <body className={`${inter.className} ${fredoka_init.variable} `}>
-        <NavBar/>
-          {children}
-        <Footer/> 
-      </body>
-     
-    </html>
+    <>
+      {/* <AppContextProvider>
+      
+      </AppContextProvider> */}
+
+      {/* <NavBar/> */}
+      {children}
+      {/* <Footer/>  */}
+    </>
   );
 }

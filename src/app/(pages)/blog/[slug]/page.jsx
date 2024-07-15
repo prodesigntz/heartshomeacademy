@@ -16,21 +16,31 @@ export default function page({ params }) {
   return (
     <main className="psektion respons space-y-10">
       {/* image */}
-      <div className="">
+      <div className=" md:-mt-32 bg-white rounded-md">
         <Image
-          src={blog.img}
+          src="/images/fontfed/content-image-girl-drawing-with-colors-e1672042157790.png"
           alt="blog"
           width={2000} // Replace with actual width
-          height={200} // Replace with actual height
-          className="h-80 object-cover rounded-md"
+          height={240} // Replace with actual height
+          className="h-80 object-cover rounded-md border border-heartssecondary"
         />
       </div>
 
       {/* title */}
-      <div className="font-bold md:text-6xl">{blog.title}</div>
+      <div className="font-bold md:text-6xl">Best training for children</div>
 
       {/* description */}
-      <div className="">{blog.desc}</div>
+      <div className="">
+        <p className="">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
+          quibusdam, asperiores et pariatur nobis vero odio neque qui minima
+          corrupti. Natus temporibus rem voluptatem porro laboriosam odit at in
+          veniam. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          Atque itaque aliquid ipsum minus nostrum? Consectetur reiciendis vero
+          aliquam quaerat excepturi, aperiam, inventore, facilis enim voluptatum
+          saepe nisi molestias atque dolore!
+        </p>
+      </div>
     </main>
   );
 }

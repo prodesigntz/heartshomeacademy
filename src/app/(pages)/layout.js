@@ -32,8 +32,16 @@ const fredoka_init = Fredoka({
 export default function RootLayout({ children }) {
   const pathname = usePathname();
 
-  // Extract the page name from the pathname
-  const pageName = pathname.split("/").pop();
+  // Split the pathname into segments
+  const pathSegments = pathname.split("/").filter((segment) => segment);
+
+  // Format each segment
+  const formattedSegments = pathSegments.map((segment) =>
+    segment
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+  );
 
   return (
     <div>
@@ -43,7 +51,11 @@ export default function RootLayout({ children }) {
           <div className="respons sektion md:grid-cols-5 text-white">
             <div></div>
             <div className="col-span-3 capitalize">
-              <Title subHeading="Hearts Home Academy" first={pageName} />
+              <Title
+                className=""
+                subHeading="Hearts Home Academy"
+                first={formattedSegments[formattedSegments.length - 1]}
+              />
               <div className="flex justify-center ">
                 <Breadcrumb>
                   <BreadcrumbList>
@@ -55,14 +67,29 @@ export default function RootLayout({ children }) {
                         Home
                       </BreadcrumbLink>
                     </BreadcrumbItem>
-                    <BreadcrumbSeparator>
-                      <Slash className="text-white" />
-                    </BreadcrumbSeparator>
-                    <BreadcrumbItem>
-                      <BreadcrumbPage className="text-white capitalize">
-                        {pageName}
-                      </BreadcrumbPage>
-                    </BreadcrumbItem>
+                    {pathSegments.map((segment, index) => (
+                      <>
+                        <BreadcrumbSeparator key={`separator-${index}`}>
+                          <Slash className="text-white" />
+                        </BreadcrumbSeparator>
+                        <BreadcrumbItem key={`breadcrumb-${index}`}>
+                          {index === pathSegments.length - 1 ? (
+                            <BreadcrumbPage className="text-white capitalize">
+                              {formattedSegments[index]}
+                            </BreadcrumbPage>
+                          ) : (
+                            <BreadcrumbLink
+                              href={`/${pathSegments
+                                .slice(0, index + 1)
+                                .join("/")}`}
+                              className="text-white hover:text-white capitalize"
+                            >
+                              {formattedSegments[index]}
+                            </BreadcrumbLink>
+                          )}
+                        </BreadcrumbItem>
+                      </>
+                    ))}
                   </BreadcrumbList>
                 </Breadcrumb>
               </div>

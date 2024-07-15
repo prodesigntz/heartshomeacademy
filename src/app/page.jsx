@@ -8,11 +8,6 @@ import { Footer } from "@/components/footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-// export const metadata = {
-//   title: "Hearts Home Academy",
-//   description: "Building Blocks for Dreams",
-// };
-
 export default function Home() {
  
   useEffect(() => {
@@ -25,6 +20,7 @@ export default function Home() {
 
   return (
     <main className="">
+
       <NavBar />
       <Landing />
       <Footer />
