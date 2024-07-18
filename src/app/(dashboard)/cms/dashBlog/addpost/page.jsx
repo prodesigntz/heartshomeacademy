@@ -36,6 +36,8 @@ export default function AddPost({params}) {
           "Blogpost",
           postId
         );
+        
+        
         if (didSucceed) {
           setFormData({
             title: document.title,

@@ -109,6 +109,30 @@ const getSingleDocByFieldName = async (cln, value) => {
   }
 };
 
+const getSingleDocByFieldNameOrg = async (cln, fieldName, fieldValue) => {
+  try {
+    const qr = query(collection(db, cln), where(fieldName, "==", fieldValue));
+    const docSnap = await getDocs(qr);
+
+    if (!docSnap.empty) {
+      let item = {};
+      docSnap.forEach((doc) => {
+        item = { ...doc.data(), id: doc.id };
+      });
+
+      return {
+        didSucceed: true,
+        document: item,
+      };
+    } else {
+      return { didSucceed: false, document: null };
+    }
+  } catch (error) {
+    console.error("Error querying document by field:", error);
+    return { didSucceed: false, document: null };
+  }
+};
+
 export {
   createDocument,
   fetchDocuments,
@@ -116,4 +140,5 @@ export {
   deleteDocument,
   getSingleDocument,
   getSingleDocByFieldName,
+  getSingleDocByFieldNameOrg,
 };

@@ -3,37 +3,43 @@
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { getSingleDocByFieldName } from "@/firebase/databaseOperations";
+import { getSingleDocByFieldNameOrg } from "@/firebase/databaseOperations";
 
 export default function Page({params}) {
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
 
-  console.log("Blog Data:", blog);
-
   useEffect(() => {
     const fetchBlogData = async () => {
-      const { didSucceed, document } = await getSingleDocByFieldName(
-        "Blogpost",
-        slug
-      );
+      if (!slug) {
+        console.error("No slug provided");
+        return;
+      }
 
-      if (didSucceed) {
-        setBlog(document);
-      } else {
-        console.error("Failed to fetch blog post");
+      try {
+        const { didSucceed, document } = await getSingleDocByFieldNameOrg(
+          "Blogpost",
+          "slug",
+          slug
+        );
+
+        console.log("Document Data: ", document);
+
+        if (didSucceed) {
+          setBlog(document);
+        } else {
+          console.error("Failed to fetch blog post");
+        }
+      } catch (error) {
+        console.error("Error fetching blog post:", error);
       }
     };
 
-    if (slug) {
-      fetchBlogData();
-    }
-
-    console.log("Blog Data:", blog)
-  }, [slug, blog]);
+    fetchBlogData();
+  }, [slug]);
 
   if (!blog) {
-    return <div>Loading...</div>;
+    return <div className="psektion respons">Loading...</div>;
   }
 
   return (
@@ -44,8 +50,8 @@ export default function Page({params}) {
           src={blog.img}
           alt={blog.title}
           width={2000} // Replace with actual width
-          height={240} // Replace with actual height
-          className="h-80 object-cover rounded-md border border-heartssecondary"
+          height={340} // Replace with actual height
+          className="h-96 object-cover rounded-md border border-heartssecondary"
         />
       </div>
 
@@ -54,7 +60,7 @@ export default function Page({params}) {
 
       {/* description */}
       <div className="">
-        <p className="">{blog.description}</p>
+        <p className="">{blog.desc}</p>
       </div>
     </main>
   );

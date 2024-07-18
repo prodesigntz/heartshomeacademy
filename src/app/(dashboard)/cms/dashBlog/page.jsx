@@ -21,10 +21,13 @@ import { fetchDocuments, deleteDocument } from "@/firebase/databaseOperations";
 export default function Page() {
   const [data, setData] = useState([]);
   const router = useRouter();
+  
 
   useEffect(() => {
     const fetchData = async () => {
       const { didSucceed, items } = await fetchDocuments("Blogpost");
+      //console.log("Items:...", items)
+
       if (didSucceed) {
         setData(items);
       } else {
@@ -33,7 +36,9 @@ export default function Page() {
     };
 
     fetchData();
+
   }, []);
+
 
   const handleDelete = async (postId) => {
     const { didSucceed } = await deleteDocument("Blogpost", postId);
@@ -44,6 +49,7 @@ export default function Page() {
     }
   };
 
+  
   return (
     <main className="space-y-10">
       <section className="sektion md:grid-cols-2">
