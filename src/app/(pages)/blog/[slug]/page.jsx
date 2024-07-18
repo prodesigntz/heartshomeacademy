@@ -1,25 +1,48 @@
 "use client";
 
-import { blogData } from '@/data/blogData';
-import Image from 'next/image';
-import { useParams } from 'next/navigation'
-import React from 'react'
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { getSingleDocByFieldName } from "@/firebase/databaseOperations";
 
-export default function page({ params }) {
+export default function Page({params}) {
   const { slug } = useParams();
+  const [blog, setBlog] = useState(null);
 
-  // Find the blog post based on the slug
-  const blog = blogData.find((blog) => blog.slug === slug);
+  console.log("Blog Data:", blog);
 
-  // console.log(blogSlug);
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      const { didSucceed, document } = await getSingleDocByFieldName(
+        "Blogpost",
+        slug
+      );
+
+      if (didSucceed) {
+        setBlog(document);
+      } else {
+        console.error("Failed to fetch blog post");
+      }
+    };
+
+    if (slug) {
+      fetchBlogData();
+    }
+
+    console.log("Blog Data:", blog)
+  }, [slug, blog]);
+
+  if (!blog) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main className="psektion respons space-y-10">
       {/* image */}
-      <div className=" md:-mt-32 bg-white rounded-md">
+      <div className="md:-mt-32 bg-white rounded-md">
         <Image
-          src="/images/fontfed/content-image-girl-drawing-with-colors-e1672042157790.png"
-          alt="blog"
+          src={blog.img}
+          alt={blog.title}
           width={2000} // Replace with actual width
           height={240} // Replace with actual height
           className="h-80 object-cover rounded-md border border-heartssecondary"
@@ -27,19 +50,11 @@ export default function page({ params }) {
       </div>
 
       {/* title */}
-      <div className="font-bold md:text-6xl">Best training for children</div>
+      <div className="font-bold md:text-6xl">{blog.title}</div>
 
       {/* description */}
       <div className="">
-        <p className="">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-          quibusdam, asperiores et pariatur nobis vero odio neque qui minima
-          corrupti. Natus temporibus rem voluptatem porro laboriosam odit at in
-          veniam. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Atque itaque aliquid ipsum minus nostrum? Consectetur reiciendis vero
-          aliquam quaerat excepturi, aperiam, inventore, facilis enim voluptatum
-          saepe nisi molestias atque dolore!
-        </p>
+        <p className="">{blog.description}</p>
       </div>
     </main>
   );

@@ -1,4 +1,3 @@
-// Dashboard.js
 "use client"
 
 import React, { useEffect } from "react";
@@ -8,8 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Dashboard() {
    const { authUser } = useAppContext();
    const router = useRouter();
-
-  console.log("User Data: ", authUser);
+   //console.log("User Data: ", authUser);
 
    useEffect(() => {
      if (!authUser) {

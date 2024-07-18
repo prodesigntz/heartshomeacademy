@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import firebase from "@/firebase/firebaseInit"; // Adjust the path if necessary
 import { useRouter } from "next/navigation";
+import { Link2 } from "lucide-react";
+import Link from "next/link";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -65,6 +67,18 @@ export default function ForgotPasswordPage() {
             </button>
           </div>
         </form>
+        <div className="text-center mt-5">
+          <p className="text-slate-700 text-sm">
+            Already have an account?{" "}
+            <Link
+              href="/signup"
+              className="font-bold text-blue-500 hover:text-blue-800"
+            >
+              Sign In
+            </Link>
+          </p>
+        
+        </div>
       </div>
     </main>
   );

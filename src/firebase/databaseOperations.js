@@ -104,9 +104,8 @@ const getSingleDocByFieldName = async (cln, value) => {
       return { didSucceed: false, document: null };
     }
   } catch (error) {
-    console.log("Indexing abra:...", error);
+   // console.log("Indexing abra:...", error); // querring indexing
     return { didSucceed: false, document: null };
-
   }
 };
 

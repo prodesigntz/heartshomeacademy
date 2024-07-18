@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import React, { useState } from "react";
@@ -6,15 +6,15 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import firebase from "@/firebase/firebaseInit"; // Adjust the path if necessary
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/context/AppContext";
-import { getSingleDocByFieldName, getSingleDocument } from "@/firebase/databaseOperations";
+import { getSingleDocByFieldName } from "@/firebase/databaseOperations";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
-  const {setAuthUser} = useAppContext();
+  const { setAuthUser } = useAppContext();
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -24,40 +24,41 @@ export default function LoginPage() {
     setPassword(e.target.value);
   };
 
-    const handleSignIn = async (e) => {
-      e.preventDefault();
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
-      try {
-        const authUserCredential = await signInWithEmailAndPassword(
-          firebase.auth,
-          email,
-          password
-        );
-        const authUserData = authUserCredential.user;
+    try {
+      const authUserCredential = await signInWithEmailAndPassword(
+        firebase.auth,
+        email,
+        password
+      );
+      const authUserData = authUserCredential.user;
 
-        //console.log("Authenticated uSer details:", authUser)
+      // Fetch user data from Firestore using getSingleDocument
+      const userAuthData = await getSingleDocByFieldName(
+        "Users",
+        authUserData.uid
+      );
 
-        // Fetch user data from Firestore using getSingleDocument
-        const userAuthData = await getSingleDocByFieldName("Users", authUserData.uid);
-
-        if (userAuthData.didSucceed) {
-          // Update context with user data
-          // console.log("userData", userAuthData.document);
-          setAuthUser({ ...userAuthData.document, id: authUserData.uid });
-
-          router.push("/cms"); // Replace with your dashboard route
-
-        } else {
-          setError("User does not exist.");
-        }
-        
-      } catch (error) {
-        console.error("Sign-in error:", error.message);
-        setError(
-          "Failed to sign in. Please check your credentials and try again."
-        );
+      if (userAuthData.didSucceed) {
+        // Update context with user data
+        setAuthUser({ ...userAuthData.document, id: authUserData.uid });
+        router.push("/cms"); // Replace with your dashboard route
+      } else {
+        setError("User does not exist.");
       }
-    };
+    } catch (error) {
+      console.error("Sign-in error:", error.message);
+      setError(
+        "Failed to sign in. Please check your credentials and try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <main className="h-screen flex justify-center items-center text-white bg-[url('/images/heros/bghero.jpg')] bg-cover bg-center bg-slate-700 bg-blend-overlay bg-no-repeat">
@@ -105,12 +106,13 @@ export default function LoginPage() {
             <button
               className="bg-heartsprimary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
+              disabled={isLoading}
             >
-              Sign In
+              {isLoading ? "Signing In..." : "Sign In"}
             </button>
           </div>
         </form>
-        <div className="text-center">
+        <div className="text-center mt-5">
           <p className="text-slate-700 text-sm">
             Don't have an account?{" "}
             <Link
@@ -123,7 +125,7 @@ export default function LoginPage() {
           <p className="text-slate-700 text-sm mt-2">
             Forgot your password?{" "}
             <Link
-              href="/forgot-password"
+              href="/forgotPassword"
               className="font-bold text-blue-500 hover:text-blue-800"
             >
               Reset it here

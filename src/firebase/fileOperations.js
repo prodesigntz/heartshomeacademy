@@ -7,6 +7,7 @@ import {
 import firebase from "./firebaseInit";
 
 const storage = firebase.storage;
+
 const imageUploadToFirebase = async (image, folderName) => {
   // unique string
   const uniqueString = new Date().getTime().toString();
