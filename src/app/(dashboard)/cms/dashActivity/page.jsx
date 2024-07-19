@@ -65,7 +65,7 @@ export default function page() {
       </section>
       <section>
         <Table className="">
-          <TableCaption>List of Progams </TableCaption>
+          <TableCaption>List of Activities </TableCaption>
 
           <TableHeader>
             <TableRow>

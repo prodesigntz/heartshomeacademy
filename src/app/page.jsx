@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 
 import NavBar from "@/components/navbar";
-import Landing from "./(pages)/home/page";
+import Landing from "./(pages)/landing/page";
 import { Footer } from "@/components/footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
