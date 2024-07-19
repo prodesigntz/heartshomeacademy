@@ -11,9 +11,9 @@ import {
 import { imageUploadToFirebase } from "@/firebase/fileOperations";
 import { getSlug } from "@/lib/utils";
 
-export default function AddPrograms({ params }) {
-  const { progId } = useParams();
-  // console.log("Program ID:", progId);
+export default function AddActivity({ params }) {
+  const { actId } = useParams();
+  // console.log("Activity ID:", actId);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { authUser } = useAppContext();
@@ -21,42 +21,52 @@ export default function AddPrograms({ params }) {
     title: "",
     desc: "",
     age: "",
+    //updated
+    obj: "",
+    duration: "",
+    freq: "",
+    //updated
     img: null,
     imgPreview: null,
   });
 
   const router = useRouter();
 
-  // Fetch existing post data if progId is provided
+  // Fetch existing post data if actId is provided
   useEffect(() => {
-    if (progId) {
+    if (actId) {
       const fetchPost = async () => {
         setIsLoading(true);
         try {
           const { didSucceed, document } = await getSingleDocument(
-            "Programs",
-            progId
+            "Activities",
+            actId
           );
           if (didSucceed) {
             setFormData({
               title: document.title,
               desc: document.desc,
               age: document.age,
+              //updated
+              obj: document.obj,
+              duration: document.duration,
+              freq: document.freq,
+              //updated
               img: document.img || null,
               imgPreview: document.img || null,
             });
           } else {
-            setError("Failed to fetch program data.");
+            setError("Failed to fetch activity data.");
           }
         } catch (fetchError) {
-          setError(`Error fetching program data: ${fetchError.message}`);
+          setError(`Error fetching activity data: ${fetchError.message}`);
         }
         setIsLoading(false);
       };
 
       fetchPost();
     }
-  }, [progId]);
+  }, [actId]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -70,7 +80,7 @@ export default function AddPrograms({ params }) {
     }
   };
 
-  const handleProgramSave = async (e) => {
+  const handleActivitySave = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
@@ -79,36 +89,41 @@ export default function AddPrograms({ params }) {
       let imageUrl = formData.img;
 
       if (formData.img && typeof formData.img !== "string") {
-        imageUrl = await imageUploadToFirebase(formData.img, "programImages");
+        imageUrl = await imageUploadToFirebase(formData.img, "activityImages");
       }
 
       const slug = getSlug(formData.title);
 
-      const programData = {
+      const activityData = {
         title: formData.title,
         desc: formData.desc,
         author: authUser?.username || "Anonymous",
         age: formData.age,
+        //updated
+        obj: formData.obj,
+        duration: formData.duration,
+        freq: formData.freq,
+        //updated
         img: imageUrl,
         updatedAt: new Date().toISOString(),
         slug,
       };
 
       let result;
-      if (progId) {
-        result = await updateDocument("Programs", progId, programData);
+      if (actId) {
+        result = await updateDocument("Activities", actId, activityData);
       } else {
-        programData.createdAt = new Date().toISOString();
-        result = await createDocument(programData, "Programs");
+        activityData.createdAt = new Date().toISOString();
+        result = await createDocument(activityData, "Activities");
       }
 
       if (result.didSucceed) {
-        router.push("/cms/dashPrograms"); // Replace with your CMS route
+        router.push("/cms/dashActivity"); // Replace with your CMS route
       } else {
-        setError("Failed to save program post.");
+        setError("Failed to save activity post.");
       }
     } catch (error) {
-      console.error("Program save error:", error.message);
+      console.error("Activity save error:", error.message);
       setError(error.message);
     } finally {
       setIsLoading(false);
@@ -119,9 +134,9 @@ export default function AddPrograms({ params }) {
     <main>
       <div className="bg-white shadow-lg rounded-lg p-8 w-full">
         <h1 className="text-2xl font-bold text-center text-slate-700 mb-6">
-          {progId ? "Update Program" : "Create a Program"}
+          {actId ? "Update Activity" : "Create a Activity"}
         </h1>
-        <form onSubmit={handleProgramSave}>
+        <form onSubmit={handleActivitySave}>
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
@@ -157,6 +172,26 @@ export default function AddPrograms({ params }) {
               required
             />
           </div>
+          {/* obj: document.obj,  */}
+          <div className="mb-4">
+            <label
+              className="block text-slate-700 text-sm font-bold mb-2"
+              htmlFor="desc"
+            >
+              Objective
+            </label>
+            <textarea
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="obj"
+              placeholder="Enter Ojective Here"
+              name="obj"
+              value={formData.obj}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* age */}
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
@@ -175,6 +210,48 @@ export default function AddPrograms({ params }) {
               required
             />
           </div>
+
+          {/* duration: document.duration,  */}
+          <div className="mb-4">
+            <label
+              className="block text-slate-700 text-sm font-bold mb-2"
+              htmlFor="duration"
+            >
+              Duration
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="duration"
+              type="text"
+              placeholder="Duration"
+              name="duration"
+              value={formData.duration}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* freq: document.freq, */}
+          <div className="mb-4">
+            <label
+              className="block text-slate-700 text-sm font-bold mb-2"
+              htmlFor="freq"
+            >
+              Activity Frequency
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="freq"
+              type="text"
+              placeholder="Frequency"
+              name="freq"
+              value={formData.freq}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          {/* Featured Image */}
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
@@ -199,8 +276,8 @@ export default function AddPrograms({ params }) {
             )}
           </div>
 
+          {/* Error Pop Up */}
           {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
-
           <div className="flex items-center justify-between mb-4">
             <button
               className="bg-heartsprimary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -208,12 +285,12 @@ export default function AddPrograms({ params }) {
               disabled={isLoading}
             >
               {isLoading
-                ? progId
-                  ? "Updating Program..."
-                  : "Creating Program..."
-                : progId
-                ? "Update Program"
-                : "Create Program"}
+                ? actId
+                  ? "Updating Activity..."
+                  : "Creating Activity..."
+                : actId
+                ? "Update Activity"
+                : "Create Activity"}
             </button>
           </div>
         </form>

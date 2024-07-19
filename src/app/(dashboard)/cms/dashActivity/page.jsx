@@ -110,7 +110,7 @@ export default function page() {
                 <TableCell className="items-center space-x-1">
                   <Button
                     onClick={() =>
-                      router.push(`/cms/dashPrograms/${item.id}`)
+                      router.push(`/cms/dashActivity/${item.id}`)
                     }
                     className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
                   >
@@ -127,7 +127,7 @@ export default function page() {
                     className="bg-heartsprimary text-white hover:bg-heartsprimary"
                   >
                     <Link
-                      href={`/programs/${item.slug}`}
+                      href={`/activity/${item.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
