@@ -113,8 +113,9 @@ export default function LoginPage() {
           </div>
         </form>
         <div className="text-center mt-5">
-          <p className="text-slate-700 text-sm">
-            Don't have an account?{" "}
+          <p className="text-slate-700 text-sm space-x-2">
+            <span>
+            Don't have an account?</span>
             <Link
               href="/signup"
               className="font-bold text-blue-500 hover:text-blue-800"
@@ -122,8 +123,9 @@ export default function LoginPage() {
               Sign Up
             </Link>
           </p>
-          <p className="text-slate-700 text-sm mt-2">
-            Forgot your password?{" "}
+          <p className="text-slate-700 text-sm mt-2 space-x-2">
+            <span>Forgot your password?</span>
+            
             <Link
               href="/forgotPassword"
               className="font-bold text-blue-500 hover:text-blue-800"
