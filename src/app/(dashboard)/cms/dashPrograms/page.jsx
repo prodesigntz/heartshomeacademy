@@ -13,7 +13,6 @@ import {
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
-import { IoDuplicate } from "react-icons/io5";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { fetchDocuments, deleteDocument } from "@/firebase/databaseOperations";
@@ -25,13 +24,13 @@ export default function Page() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { didSucceed, items } = await fetchDocuments("Blogpost");
+      const { didSucceed, items } = await fetchDocuments("Programs");
       //console.log("Items:...", items)
 
       if (didSucceed) {
         setData(items);
       } else {
-        console.error("Failed to fetch blog posts");
+        console.error("Failed to fetch programs posts");
       }
     };
 
@@ -40,10 +39,10 @@ export default function Page() {
   }, []);
 
 
-  const handleDelete = async (postId) => {
-    const { didSucceed } = await deleteDocument("Blogpost", postId);
+  const handleDelete = async (progId) => {
+    const { didSucceed } = await deleteDocument("Programs", progId);
     if (didSucceed) {
-      setData((prevData) => prevData.filter((post) => post.id !== postId));
+      setData((prevData) => prevData.filter((post) => post.id !== progId));
     } else {
       console.error("Failed to delete post");
     }
@@ -60,13 +59,13 @@ export default function Page() {
             variant="hearts-primary"
             className="rounded-full bg-heartsprimary text-white"
           >
-            <Link href="/cms/dashBlog/addpost">Create Post</Link>
+            <Link href="/cms/dashPrograms/addprogram">Create Program</Link>
           </Button>
         </div>
       </section>
       <section>
         <Table className="">
-          <TableCaption>List of Blog Posts</TableCaption>
+          <TableCaption>List of Progams </TableCaption>
 
           <TableHeader>
             <TableRow>
@@ -74,7 +73,7 @@ export default function Page() {
               <TableHead>Image</TableHead>
               <TableHead>Title</TableHead>
               <TableHead>Author</TableHead>
-              <TableHead>Category</TableHead>
+              <TableHead>Age</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -106,12 +105,12 @@ export default function Page() {
                   <h3>{item.author}</h3>
                 </TableCell>
                 <TableCell>
-                  <h3>{item.category}</h3>
+                  <h3>{item.age}</h3>
                 </TableCell>
                 <TableCell className="items-center space-x-1">
                   <Button
                     onClick={() =>
-                      router.push(`/cms/dashBlog/${item.id}`)
+                      router.push(`/cms/dashPrograms/${item.id}`)
                     }
                     className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
                   >
@@ -128,7 +127,7 @@ export default function Page() {
                     className="bg-heartsprimary text-white hover:bg-heartsprimary"
                   >
                     <Link
-                      href={`/blog/${item.slug}`}
+                      href={`/programs/${item.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

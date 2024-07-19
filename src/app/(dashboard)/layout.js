@@ -21,7 +21,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <div className="flex">
-      <div className="w-64 h-screen space-y-5 p-5 hidden md:block max-h-full bg-heartssecondary">
+      <div className="w-64 h-auto space-y-5 p-5 hidden md:block max-h-full bg-heartssecondary">
         <div className="bg-heartsprimary p-5  rounded-lg  sticky top-0 z-20 shadow-md ">
           <h1 className="fredoka text-white text-lg font-bold antialiased">
             Heart Home Academy

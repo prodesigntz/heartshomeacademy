@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { getSingleDocByFieldNameOrg } from "@/firebase/databaseOperations";
+import SkeletonOne from "@/components/skeletonOne";
 
 export default function Page({params}) {
   const { slug } = useParams();
@@ -39,7 +40,7 @@ export default function Page({params}) {
   }, [slug]);
 
   if (!blog) {
-    return <div className="psektion respons">Loading...</div>;
+    return <div className="psektion respons"><SkeletonOne/></div>;
   }
 
   return (

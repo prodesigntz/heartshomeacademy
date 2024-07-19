@@ -47,7 +47,7 @@ export default function NavBar() {
               variant="hearts-primary"
               className="rounded-full bg-heartsprimary text-white"
             >
-              <Link href="/enroll">Enroll</Link>
+              <Link href="/enroll">Enroll Now</Link>
              
             </Button>
           </div>

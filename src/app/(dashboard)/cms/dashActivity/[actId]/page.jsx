@@ -11,58 +11,57 @@ import {
 import { imageUploadToFirebase } from "@/firebase/fileOperations";
 import { getSlug } from "@/lib/utils";
 
-export default function AddPost({params}) {
-  const { postId } = useParams();
-  console.log("Post ID:...", postId);
+export default function AddPrograms({ params }) {
+  const { progId } = useParams();
+  // console.log("Program ID:", progId);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { authUser } = useAppContext();
   const [formData, setFormData] = useState({
     title: "",
     desc: "",
-    category: "",
+    age: "",
     img: null,
-    imgPreview: null, // Added for image preview
+    imgPreview: null,
   });
 
-  // Navigation
   const router = useRouter();
 
-  // Fetch existing post data if postId is provided
+  // Fetch existing post data if progId is provided
   useEffect(() => {
-    if (postId) {
+    if (progId) {
       const fetchPost = async () => {
         setIsLoading(true);
-        const { didSucceed, document } = await getSingleDocument(
-          "Blogpost",
-          postId
-        );
-        
-        
-        if (didSucceed) {
-          setFormData({
-            title: document.title,
-            desc: document.desc,
-            category: document.category,
-            img: document.img || null,
-            imgPreview: document.img || null, // Added for image preview
-          });
-        } else {
-          setError("Failed to fetch post data.");
+        try {
+          const { didSucceed, document } = await getSingleDocument(
+            "Programs",
+            progId
+          );
+          if (didSucceed) {
+            setFormData({
+              title: document.title,
+              desc: document.desc,
+              age: document.age,
+              img: document.img || null,
+              imgPreview: document.img || null,
+            });
+          } else {
+            setError("Failed to fetch program data.");
+          }
+        } catch (fetchError) {
+          setError(`Error fetching program data: ${fetchError.message}`);
         }
         setIsLoading(false);
       };
 
       fetchPost();
     }
-  }, [postId]);
+  }, [progId]);
 
-  // Handling data change on typing
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handling image upload and preview
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -71,8 +70,7 @@ export default function AddPost({params}) {
     }
   };
 
-  // Handle blog creation or update
-  const handleBlogSave = async (e) => {
+  const handleProgramSave = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
@@ -81,36 +79,36 @@ export default function AddPost({params}) {
       let imageUrl = formData.img;
 
       if (formData.img && typeof formData.img !== "string") {
-        imageUrl = await imageUploadToFirebase(formData.img, "blogImages");
+        imageUrl = await imageUploadToFirebase(formData.img, "programImages");
       }
 
       const slug = getSlug(formData.title);
 
-      const blogData = {
+      const programData = {
         title: formData.title,
         desc: formData.desc,
         author: authUser?.username || "Anonymous",
-        category: formData.category,
+        age: formData.age,
         img: imageUrl,
         updatedAt: new Date().toISOString(),
         slug,
       };
 
       let result;
-      if (postId) {
-        result = await updateDocument("Blogpost", postId, blogData);
+      if (progId) {
+        result = await updateDocument("Programs", progId, programData);
       } else {
-        blogData.createdAt = new Date().toISOString();
-        result = await createDocument(blogData, "Blogpost");
+        programData.createdAt = new Date().toISOString();
+        result = await createDocument(programData, "Programs");
       }
 
       if (result.didSucceed) {
-        router.push("/cms/dashBlog"); // Replace with your CMS route
+        router.push("/cms/dashPrograms"); // Replace with your CMS route
       } else {
-        setError("Failed to save blog post.");
+        setError("Failed to save program post.");
       }
     } catch (error) {
-      console.error("Blogpost save error:", error.message);
+      console.error("Program save error:", error.message);
       setError(error.message);
     } finally {
       setIsLoading(false);
@@ -121,9 +119,9 @@ export default function AddPost({params}) {
     <main>
       <div className="bg-white shadow-lg rounded-lg p-8 w-full">
         <h1 className="text-2xl font-bold text-center text-slate-700 mb-6">
-          {postId ? "Update Blog Post" : "Create a Blog Post"}
+          {progId ? "Update Program" : "Create a Program"}
         </h1>
-        <form onSubmit={handleBlogSave}>
+        <form onSubmit={handleProgramSave}>
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
@@ -162,17 +160,17 @@ export default function AddPost({params}) {
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
-              htmlFor="category"
+              htmlFor="age"
             >
-              Category
+              Age
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="category"
+              id="age"
               type="text"
-              placeholder="Category"
-              name="category"
-              value={formData.category}
+              placeholder="Age"
+              name="age"
+              value={formData.age}
               onChange={handleChange}
               required
             />
@@ -210,12 +208,12 @@ export default function AddPost({params}) {
               disabled={isLoading}
             >
               {isLoading
-                ? postId
-                  ? "Updating Post..."
-                  : "Creating Post..."
-                : postId
-                ? "Update Post"
-                : "Create Post"}
+                ? progId
+                  ? "Updating Program..."
+                  : "Creating Program..."
+                : progId
+                ? "Update Program"
+                : "Create Program"}
             </button>
           </div>
         </form>

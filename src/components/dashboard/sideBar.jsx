@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import {
   Command,
   CommandGroup,
-  CommandItem,
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";

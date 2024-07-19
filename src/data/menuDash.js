@@ -57,13 +57,13 @@ export const menuDashItem = [
     subMenu: [
       {
         name: "List Activities",
-        path: "/cms/activities",
+        path: "/cms/dashActivity",
         icon: "",
       },
 
       {
         name: "Add Activities",
-        path: "/cms/add-activities",
+        path: "/cms/dashActivity/addactivity",
         icon: "",
       },
     ],
@@ -136,12 +136,12 @@ export const menuDashItem = [
     subMenu: [
       {
         name: "All Programs",
-        path: "/cms/allPrograms",
+        path: "/cms/dashPrograms",
         icon: "",
       },
       {
         name: "Add Programs",
-        path: "/cms/add-programs",
+        path: "/cms/dashPrograms/addprogram",
         icon: "",
       },
     ],
