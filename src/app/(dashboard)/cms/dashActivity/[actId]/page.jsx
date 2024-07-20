@@ -10,6 +10,7 @@ import {
 } from "@/firebase/databaseOperations";
 import { imageUploadToFirebase } from "@/firebase/fileOperations";
 import { getSlug } from "@/lib/utils";
+import Image from "next/image";
 
 export default function AddActivity({ params }) {
   const { actId } = useParams();
@@ -267,9 +268,10 @@ export default function AddActivity({ params }) {
             />
             {formData.imgPreview && (
               <div className="mt-2">
-                <img
+                <Image
                   src={formData.imgPreview}
                   alt="Current Featured Image"
+                  fill
                   className="h-32 w-48 object-cover"
                 />
               </div>

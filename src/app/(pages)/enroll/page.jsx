@@ -13,7 +13,7 @@ export default function Enroll() {
           {/* data one */}
           <div className="sektion md:grid-cols-4 bg-slate-100 md:py-5 md:px-5 rounded-md">
             <div className="mb-4">
-              <label className="block text-gray-700">Child's Full Name</label>
+              <label className="block text-gray-700">Child Full Name</label>
               <input
                 type="text"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200"
@@ -353,7 +353,7 @@ export default function Enroll() {
               I certify that the information provided on this form is complete
               and accurate to the best of my knowledge. I understand that
               providing false information may result in the disqualification of
-              my child's application.
+              my child application.
             </p>
             <div className="sektion md:grid-cols-2 bg-slate-100 md:py-5 md:px-5 rounded-md">
             <div className="mb-4">

@@ -20,27 +20,24 @@ import { fetchDocuments, deleteDocument } from "@/firebase/databaseOperations";
 export default function Page() {
   const [data, setData] = useState([]);
   const router = useRouter();
-  
 
   useEffect(() => {
     const fetchData = async () => {
-      const { didSucceed, items } = await fetchDocuments("Activities");
+      const { didSucceed, items } = await fetchDocuments("Programs");
       //console.log("Items:...", items)
 
       if (didSucceed) {
         setData(items);
       } else {
-        console.error("Failed to fetch activities posts");
+        console.error("Failed to fetch programs posts");
       }
     };
 
     fetchData();
-
   }, []);
 
-
   const handleDelete = async (progId) => {
-    const { didSucceed } = await deleteDocument("Activities", progId);
+    const { didSucceed } = await deleteDocument("Programs", progId);
     if (didSucceed) {
       setData((prevData) => prevData.filter((post) => post.id !== progId));
     } else {
@@ -48,7 +45,6 @@ export default function Page() {
     }
   };
 
-  
   return (
     <main className="space-y-10">
       <section className="sektion md:grid-cols-2">
@@ -59,13 +55,13 @@ export default function Page() {
             variant="hearts-primary"
             className="rounded-full bg-heartsprimary text-white"
           >
-            <Link href="/cms/dashActivity/addactivity">Create Activity</Link>
+            <Link href="/cms/dashPrograms/addprogram">Create Inquiry</Link>
           </Button>
         </div>
       </section>
       <section>
         <Table className="">
-          <TableCaption>List of Activities </TableCaption>
+          <TableCaption>List of All Enrollment </TableCaption>
 
           <TableHeader>
             <TableRow>
@@ -109,9 +105,7 @@ export default function Page() {
                 </TableCell>
                 <TableCell className="items-center space-x-1">
                   <Button
-                    onClick={() =>
-                      router.push(`/cms/dashActivity/${item.id}`)
-                    }
+                    onClick={() => router.push(`/cms/dashPrograms/${item.id}`)}
                     className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
                   >
                     <FaEdit />
@@ -127,7 +121,7 @@ export default function Page() {
                     className="bg-heartsprimary text-white hover:bg-heartsprimary"
                   >
                     <Link
-                      href={`/activity/${item.slug}`}
+                      href={`/dashInquiry/${item.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -143,4 +137,3 @@ export default function Page() {
     </main>
   );
 }
-

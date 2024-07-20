@@ -119,7 +119,7 @@ export const menuDashItem = [
     subMenu: [
       {
         name: "All Inquiry",
-        path: "/cms/dashInquiry/allinquiry",
+        path: "/cms/dashInquiry",
         icon: "",
       },
       {
