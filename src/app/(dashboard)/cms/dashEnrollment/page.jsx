@@ -55,7 +55,7 @@ export default function Page() {
             variant="hearts-primary"
             className="rounded-full bg-heartsprimary text-white"
           >
-            <Link href="/cms/dashPrograms/addprogram">Create Inquiry</Link>
+            <Link href="/cms/dashEnrollment/addEnrollment">Create Enrrollment</Link>
           </Button>
         </div>
       </section>
@@ -105,7 +105,7 @@ export default function Page() {
                 </TableCell>
                 <TableCell className="items-center space-x-1">
                   <Button
-                    onClick={() => router.push(`/cms/dashPrograms/${item.id}`)}
+                    onClick={() => router.push(`/cms/dashEnrollment/${item.id}`)}
                     className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
                   >
                     <FaEdit />

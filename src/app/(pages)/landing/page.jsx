@@ -8,7 +8,7 @@ import Intro from "@/components/content/intro";
 import Programs from "@/components/content/programs";
 import React from "react";
 
-export default function page() {
+export default function Page() {
   return (
     <main>
       <Hero/>

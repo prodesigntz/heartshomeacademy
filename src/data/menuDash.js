@@ -75,19 +75,15 @@ export const menuDashItem = [
     subMenu: [
       {
         name: "All Enrollment",
-        path: "/cms/dashEnrollment/allenrollment",
+        path: "/cms/dashEnrollment",
         icon: "",
       },
       {
         name: "Requested Enrollment",
-        path: "/cms/dashEnrollment/requested-enrollment",
+        path: "/cms/dashEnrollment/reqEnrollment",
         icon: "",
       },
-      {
-        name: "New Enrollment",
-        path: "/cms/dashEnrollment/add-enrollment",
-        icon: "",
-      },
+    
     ],
   },
 

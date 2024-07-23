@@ -15,35 +15,58 @@ import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { fetchDocuments, deleteDocument } from "@/firebase/databaseOperations";
+import { fetchDocuments, deleteDocument, updateDocument } from "@/firebase/databaseOperations";
+import { DialogPop } from "@/components/dialogPop";
 
 export default function Page() {
   const [data, setData] = useState([]);
+    const [selectedInquiry, setSelectedInquiry] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
-      const { didSucceed, items } = await fetchDocuments("Programs");
+      const { didSucceed, items } = await fetchDocuments("Inquiry");
       //console.log("Items:...", items)
 
       if (didSucceed) {
         setData(items);
+        //console.log("Date Consoled:....", items.createdAt);
       } else {
-        console.error("Failed to fetch programs posts");
+        console.error("Failed to fetch Inquiry posts");
       }
     };
 
     fetchData();
   }, []);
 
+  //handle deleting
   const handleDelete = async (progId) => {
-    const { didSucceed } = await deleteDocument("Programs", progId);
+    const { didSucceed } = await deleteDocument("Inquiry", progId);
     if (didSucceed) {
       setData((prevData) => prevData.filter((post) => post.id !== progId));
     } else {
       console.error("Failed to delete post");
     }
   };
+
+  //Handle save and update the comment and staturs
+    const handleSaveChanges = async ({ comment, status }, inquiry) => {
+      const updatedInquiry = { ...inquiry, comment, status };
+      const { didSucceed } = await updateDocument(
+        "Inquiry",
+        inquiry.id,
+        updatedInquiry
+      );
+      if (didSucceed) {
+        setData((prevData) =>
+          prevData.map((item) =>
+            item.id === inquiry.id ? updatedInquiry : item
+          )
+        );
+      } else {
+        console.error("Failed to update inquiry");
+      }
+    };
 
   return (
     <main className="space-y-10">
@@ -66,10 +89,11 @@ export default function Page() {
           <TableHeader>
             <TableRow>
               <TableHead>Sno.</TableHead>
-              <TableHead>Image</TableHead>
-              <TableHead>Title</TableHead>
-              <TableHead>Author</TableHead>
-              <TableHead>Age</TableHead>
+              <TableHead>Message</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead>Status</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -79,44 +103,34 @@ export default function Page() {
               <TableRow key={item.id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>
-                  {item.img && (
-                    <Image
-                      src={item.img}
-                      alt="blog"
-                      width={80}
-                      height={60}
-                      style={{
-                        maxWidth: "100%",
-                        height: "60px",
-                        objectFit: "cover",
-                      }}
-                      className="max-w-full max-h-50 rounded-md"
-                    />
-                  )}
+                  <h5>{item.desc}</h5>
                 </TableCell>
                 <TableCell>
-                  <h3 className="text-base">{item.title}</h3>
+                  <h3 className="text-base">{item.name}</h3>
                 </TableCell>
                 <TableCell>
-                  <h3>{item.author}</h3>
+                  <h3>{new Date(item.createdAt).toLocaleString()}</h3>
                 </TableCell>
                 <TableCell>
-                  <h3>{item.age}</h3>
+                  <h3>{item.email}</h3>
+                </TableCell>
+                <TableCell>
+                  <h3>{item.status}</h3>
                 </TableCell>
                 <TableCell className="items-center space-x-1">
-                  <Button
+                  {/* <Button
                     onClick={() => router.push(`/cms/dashPrograms/${item.id}`)}
                     className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
                   >
                     <FaEdit />
-                  </Button>
+                  </Button> */}
                   <Button
                     onClick={() => handleDelete(item.id)}
                     className="bg-heartsprimary text-white hover:bg-heartsprimary"
                   >
                     <FaTrash />
                   </Button>
-                  <Button
+                  {/* <Button
                     asChild
                     className="bg-heartsprimary text-white hover:bg-heartsprimary"
                   >
@@ -127,7 +141,32 @@ export default function Page() {
                     >
                       <FaEye />
                     </Link>
-                  </Button>
+                  </Button> */}
+                  <DialogPop
+                    btnTitle={<FaEye />}
+                    title="Inquiry Details"
+                    content={
+                      <div className="space-y-4 p-5 bg-heartstertiary">
+                        <p>
+                          <strong>Name:</strong> {item.name}
+                        </p>
+                        <p>
+                          <strong>Phone:</strong> {item.phone}
+                        </p>
+                        <p>
+                          <strong>Email:</strong> {item.email}
+                        </p>
+                        <p>
+                          <strong>Message:</strong> {item.desc}
+                        </p>
+                        <p>
+                          <strong>Date:</strong>{" "}
+                          {new Date(item.createdAt).toLocaleString()}
+                        </p>
+                      </div>
+                    }
+                    onSave={(data) => handleSaveChanges(data, item)}
+                  />
                 </TableCell>
               </TableRow>
             ))}

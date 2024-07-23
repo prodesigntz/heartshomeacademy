@@ -1,54 +1,78 @@
+"use client";
 
-import React from 'react'
-import { HomeParagraph, Title } from '../texties'
-import { Button } from '../ui/button'
-import { ActivitiesCards } from '../cards';
-import { activitiesData} from "@/data/activities"
+import React, { useState, useEffect } from "react";
+import { HomeParagraph, Title } from "../texties";
+import { Button } from "../ui/button";
+import { ActivitiesCards } from "../cards";
+import { activitiesData } from "@/data/activities";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
+import { fetchDocuments } from "@/firebase/databaseOperations";
 
 export default function Activities() {
-   const settings = {
-     dots: true,
-    //  autoplay: true,
-     speed: 2000,
-     autoplaySpeed: 2000,
-    //  infinite: true,
-     slidesToShow: 3,
-     slidesToScroll: 3,
-     initialSlide: 0,
-     arrows:false,
+  //states
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-     responsive: [
-       {
-         breakpoint: 1024,
-         settings: {
-           slidesToShow: 3,
-           slidesToScroll: 3,
-           //infinite: true,
-           dots: true,
-         },
-       },
-       {
-         breakpoint: 600,
-         settings: {
-           slidesToShow: 2,
-           slidesToScroll: 2,
-           initialSlide: 2,
-         },
-       },
-       {
-         breakpoint: 480,
-         settings: {
-           slidesToShow: 1,
-           slidesToScroll: 1,
-         },
-       },
-     ],
-   };
-  
+  //Querrying the data from database
+  useEffect(() => {
+    //function to fetch documents
+    const fetchData = async () => {
+      //access fetch documents
+      const { didSucceed, items } = await fetchDocuments("Activities");
+     // console.log("data here....", items);
+
+      if (didSucceed) {
+        setData(items);
+      } else {
+        console.error("Failed to fetch data");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //for slider
+  const settings = {
+    dots: true,
+    //  autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    //  infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    initialSlide: 0,
+    arrows: false,
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          //infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <section className="psektion ">
       <div className="respons sektion md:grid-cols-3">

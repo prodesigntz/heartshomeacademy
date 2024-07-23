@@ -14,3 +14,11 @@ export function getSlug(title) {
     });
     return slug;
 }
+
+export function truncateDescription  (desc, wordLimit) {
+    const words = desc.split(" ");
+    return (
+      words.slice(0, wordLimit).join(" ") +
+      (words.length > wordLimit ? "..." : "")
+    );
+  };

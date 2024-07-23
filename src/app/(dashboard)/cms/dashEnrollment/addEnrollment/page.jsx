@@ -5,7 +5,7 @@ import { createDocument } from "@/firebase/databaseOperations";
 import Link from "next/link";
 import React, { useState } from "react";
 
-export default function Enroll() {
+export default function Page() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
@@ -113,7 +113,7 @@ export default function Enroll() {
   };
 
   return (
-    <main className="psektion bg-gradient-to-t from-[#ffefe2] to-white">
+    <main className=" bg-gradient-to-t from-[#ffefe2] to-white">
       <div className="respons p-6 bg-white shadow-md rounded-md">
         <h2 className="text-2xl font-bold mb-6">
           Kindergarten School Registration Inquiry Form

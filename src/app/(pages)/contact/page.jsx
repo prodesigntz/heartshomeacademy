@@ -3,19 +3,59 @@
 import React, { useState } from "react";
 import { HomeParagraph, Title } from "@/components/texties";
 import { FaEnvelope, FaMap, FaPhoneFlip } from "react-icons/fa6";
+import { createDocument } from "@/firebase/databaseOperations";
 
 export default function Contact() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    title: "",
+    name: "",
+    email: "",
     phone: "",
     desc: "",
   });
 
+  //instant typing
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
+  //handling submitting
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    // Update date before sending
+    const updatedFormData = {
+      ...formData,
+      createdAt: new Date().toISOString(),
+    };
+
+
+    try {
+      const response = await createDocument(updatedFormData, "Inquiry");
+      if (response.didSucceed) {
+        console.log("Document written with ID: ", response.docId);
+        // Clear form fields
+        setFormData({ 
+          name: "",
+          email: "",
+          phone: "",
+          desc: "",
+        });
+        alert("Inquiry submitted successfully!");
+      } else {
+        console.error("Error adding document: ", response.message);
+        setError("Failed to submit inquiry. Please try again.");
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      setError("An unexpected error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
     <main className="">
       <section className="psektion respons sektion md:grid-cols-3 ">
@@ -52,7 +92,7 @@ export default function Contact() {
         </div>
 
         <div className="bg-slate-300 rounded-lg p-5">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
                 className="block text-slate-700 text-sm font-bold mb-2"
