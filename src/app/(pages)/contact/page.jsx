@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { HomeParagraph, Title } from "@/components/texties";
 import { FaEnvelope, FaMap, FaPhoneFlip } from "react-icons/fa6";
 import { createDocument } from "@/firebase/databaseOperations";
+import GoogleMapComponent from "@/components/GoogleMapComponent";
 
 export default function Contact() {
   const [error, setError] = useState(null);
@@ -182,7 +183,10 @@ export default function Contact() {
       </section>
 
       {/* map section */}
-      <section className="">map section</section>
+      <section className="psektion respons sektion">
+        <Title place="center" first="Find Us Here" />
+        <GoogleMapComponent />
+      </section>
     </main>
   );
 }

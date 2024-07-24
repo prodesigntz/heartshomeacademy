@@ -110,17 +110,17 @@ export const menuDashItem = [
     subMenu: [
       {
         name: "All Events",
-        path: "/cms/dashEvents/allevents",
+        path: "/cms/dashEvents",
         icon: "",
       },
       {
         name: "Add Events",
-        path: "/cms/dashEvents/add-events",
+        path: "/cms/dashEvents/addevents",
         icon: "",
       },
       {
         name: "View Event",
-        path: "/cms/dashEvents/view-events",
+        path: "/cms/dashEvents/viewevent",
         icon: "",
       },
     ],

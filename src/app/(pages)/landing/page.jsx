@@ -18,7 +18,7 @@ export default function Page() {
       <Activities/>
       <Accomplishment/>
       <Facilities/>    
-      <Gallery/>
+      {/* <Gallery/> */}
       {/* <Testimonial/> */}
       <BlogSection/>
       {/* <Subscription/> */}
