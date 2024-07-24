@@ -5,10 +5,14 @@ import { BlogCards } from "../cards";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { blogData } from '@/data/blogData';
 import Link from 'next/link';
+import useFetchAll from '@/hooks/useFetchAll';
+import SkeletonOne from '../skeletonOne';
+import { truncateDescription } from '@/lib/utils';
 
 export default function BlogSection() {
+    const {isLoading, data} = useFetchAll("Blogpost");
+
      const settings = {
        dots: true,
        speed: 2000,
@@ -54,8 +58,7 @@ export default function BlogSection() {
             <Title place="" subHeading="Blogs" first="Get Our Updates" />
             <HomeParagraph
               place="center"
-              content=" 
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit."
+              content="Stay informed with the latest happenings, tips, and events at our school."
             />
           </div>
           <div></div>
@@ -65,20 +68,28 @@ export default function BlogSection() {
         <div className="flex flex-col space-y-10">
           <div className="slider-container">
             <Slider {...settings}>
-              {blogData.map((blog, id) => (
-                <BlogCards
-                  key={id}
-                  href={`blog/${blog.slug}`}
-                  src={blog.img}
-                  title={blog.title}
-                  shortDesc={blog.shortDesc}
-                />
-              ))}
+              {isLoading
+                ? // Render 3 skeletons
+                  Array.from({ length: 3 }).map((_, index) => (
+                    <SkeletonOne key={index} />
+                  ))
+                : data.map((blog) => (
+                    <BlogCards
+                      key={blog.id}
+                      href={`blog/${blog.slug}`}
+                      src={blog.img}
+                      title={blog.title}
+                      shortDesc={truncateDescription(blog.desc, 12)}
+                    />
+                  ))}
             </Slider>
           </div>
           <div className=" flex items-center justify-center">
-            <Button asChild className="rounded-full text-center text-lg p-6 bg-heartssecondary hover:bg-red-700 hover:shadow-md">
-               <Link href="/blog"> View More</Link>
+            <Button
+              asChild
+              className="rounded-full text-center text-lg p-6 bg-heartssecondary hover:bg-red-700 hover:shadow-md"
+            >
+              <Link href="/blog"> View More</Link>
             </Button>
           </div>
         </div>

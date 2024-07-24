@@ -12,62 +12,50 @@ import { imageUploadToFirebase } from "@/firebase/fileOperations";
 import { getSlug } from "@/lib/utils";
 import Image from "next/image";
 
-export default function AddActivity({ params }) {
-  const { actId } = useParams();
-  // console.log("Activity ID:", actId);
+export default function AddFacility({ params }) {
+  const { facId } = useParams();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { authUser } = useAppContext();
   const [formData, setFormData] = useState({
     title: "",
     desc: "",
-    age: "",
-    //updated
-    obj: "",
-    duration:"",
-    freq:"",
-    //updated
     img: null,
     imgPreview: null,
   });
 
   const router = useRouter();
 
-  // Fetch existing post data if actId is provided
+  // Fetch existing post data if facId is provided
   useEffect(() => {
-    if (actId) {
+    if (facId) {
       const fetchPost = async () => {
         setIsLoading(true);
         try {
           const { didSucceed, document } = await getSingleDocument(
             "Activities",
-            actId
+            facId
           );
           if (didSucceed) {
             setFormData({
               title: document.title,
               desc: document.desc,
-              age: document.age,
-              //updated
-              obj: document.obj,
-              duration: document.duration,
-              freq: document.freq,
               //updated
               img: document.img || null,
               imgPreview: document.img || null,
             });
           } else {
-            setError("Failed to fetch activity data.");
+            setError("Failed to fetch facility data.");
           }
         } catch (fetchError) {
-          setError(`Error fetching activity data: ${fetchError.message}`);
+          setError(`Error fetching facility data: ${fetchError.message}`);
         }
         setIsLoading(false);
       };
 
       fetchPost();
     }
-  }, [actId]);
+  }, [facId]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -81,7 +69,7 @@ export default function AddActivity({ params }) {
     }
   };
 
-  const handleActivitySave = async (e) => {
+  const handleFacilitySave = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
@@ -90,41 +78,35 @@ export default function AddActivity({ params }) {
       let imageUrl = formData.img;
 
       if (formData.img && typeof formData.img !== "string") {
-        imageUrl = await imageUploadToFirebase(formData.img, "activityImages");
+        imageUrl = await imageUploadToFirebase(formData.img, "facilityImages");
       }
 
       const slug = getSlug(formData.title);
 
-      const activityData = {
+      const facilityData = {
         title: formData.title,
         desc: formData.desc,
         author: authUser?.username || "Anonymous",
-        age: formData.age,
-        //updated
-        obj: formData.obj,
-        duration: formData.duration,
-        freq: formData.freq,
-        //updated
         img: imageUrl,
         updatedAt: new Date().toISOString(),
         slug,
       };
 
       let result;
-      if (actId) {
-        result = await updateDocument("Activities", actId, activityData);
+      if (facId) {
+        result = await updateDocument("Facilities", facId, facilityData);
       } else {
-        activityData.createdAt = new Date().toISOString();
-        result = await createDocument(activityData, "Activities");
+        facilityData.createdAt = new Date().toISOString();
+        result = await createDocument(facilityData, "Facilities");
       }
 
       if (result.didSucceed) {
-        router.push("/cms/dashActivity"); // Replace with your CMS route
+        router.push("/cms/dashFacilities"); // Replace with your CMS route
       } else {
-        setError("Failed to save activity post.");
+        setError("Failed to save Facility post.");
       }
     } catch (error) {
-      console.error("Activity save error:", error.message);
+      console.error("Facility save error:", error.message);
       setError(error.message);
     } finally {
       setIsLoading(false);
@@ -135,9 +117,9 @@ export default function AddActivity({ params }) {
     <main>
       <div className="bg-white shadow-lg rounded-lg p-8 w-full">
         <h1 className="text-2xl font-bold text-center text-slate-700 mb-6">
-          {actId ? "Update Activity" : "Create a Activity"}
+          {facId ? "Update Facility" : "Create a Facility"}
         </h1>
-        <form onSubmit={handleActivitySave}>
+        <form onSubmit={handleFacilitySave}>
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
@@ -173,84 +155,10 @@ export default function AddActivity({ params }) {
               required
             />
           </div>
+
           {/* obj: document.obj,  */}
-          <div className="mb-4">
-            <label
-              className="block text-slate-700 text-sm font-bold mb-2"
-              htmlFor="desc"
-            >
-              Objective
-            </label>
-            <textarea
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="obj"
-              placeholder="Enter Ojective Here"
-              name="obj"
-              value={formData.obj}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          {/* age */}
-          <div className="mb-4">
-            <label
-              className="block text-slate-700 text-sm font-bold mb-2"
-              htmlFor="age"
-            >
-              Age
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="age"
-              type="text"
-              placeholder="Age"
-              name="age"
-              value={formData.age}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          {/* duration: document.duration,  */}
-          <div className="mb-4">
-            <label
-              className="block text-slate-700 text-sm font-bold mb-2"
-              htmlFor="duration"
-            >
-              Duration
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="duration"
-              type="text"
-              placeholder="Duration"
-              name="duration"
-              value={formData.duration}
-              onChange={handleChange}
-              required
-            />
-          </div>
 
           {/* freq: document.freq, */}
-          <div className="mb-4">
-            <label
-              className="block text-slate-700 text-sm font-bold mb-2"
-              htmlFor="freq"
-            >
-              Activity Frequency
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="freq"
-              type="text"
-              placeholder="Frequency"
-              name="freq"
-              value={formData.freq}
-              onChange={handleChange}
-              required
-            />
-          </div>
 
           {/* Featured Image */}
           <div className="mb-4">
@@ -293,12 +201,12 @@ export default function AddActivity({ params }) {
               disabled={isLoading}
             >
               {isLoading
-                ? actId
-                  ? "Updating Activity..."
-                  : "Creating Activity..."
-                : actId
-                ? "Update Activity"
-                : "Create Activity"}
+                ? facId
+                  ? "Updating facility..."
+                  : "Creating facility..."
+                : facId
+                ? "Update facility"
+                : "Create facility"}
             </button>
           </div>
         </form>

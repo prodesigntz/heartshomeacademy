@@ -1,37 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, {  } from "react";
 import { HomeParagraph, Title } from "../texties";
 import { Button } from "../ui/button";
 import { ActivitiesCards } from "../cards";
-import { activitiesData } from "@/data/activities";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { fetchDocuments } from "@/firebase/databaseOperations";
+import useFetchAll from "@/hooks/useFetchAll";
+import { truncateDescription } from "@/lib/utils";
+import SkeletonOne from "../skeletonOne";
+import Link from "next/link";
 
 export default function Activities() {
-  //states
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  //Querrying the data from database
-  useEffect(() => {
-    //function to fetch documents
-    const fetchData = async () => {
-      //access fetch documents
-      const { didSucceed, items } = await fetchDocuments("Activities");
-     // console.log("data here....", items);
-
-      if (didSucceed) {
-        setData(items);
-      } else {
-        console.error("Failed to fetch data");
-      }
-    };
-
-    fetchData();
-  }, []);
+ 
+  const { isLoading, data } = useFetchAll("Activities");
 
   //for slider
   const settings = {
@@ -83,12 +66,15 @@ export default function Activities() {
             first="Smart Activities"
           />
           <HomeParagraph
-            place="center"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+            place=" "
+            content="Fun and educational activities that stimulate cognitive development and problem-solving skills."
           />
           <div className=" flex items-center justify-center md:justify-start ">
-            <Button className="rounded-full text-center text-lg p-6 bg-heartssecondary hover:border hover:border-heartsprimary hover:text-black">
-              View More
+            <Button
+              asChild
+              className="rounded-full text-center text-lg p-6 bg-heartssecondary hover:border hover:border-heartsprimary hover:text-black"
+            >
+              <Link href="/activities">View More</Link>
             </Button>
           </div>
         </div>
@@ -96,15 +82,21 @@ export default function Activities() {
           <div className="md:pt-10"></div>
           <div className="slider-container">
             <Slider {...settings}>
-              {activitiesData.map((activity, id) => (
-                <ActivitiesCards
-                  key={id}
-                  src={activity.img}
-                  title={activity.title}
-                  desc={activity.desc}
-                  data-aos="zoom-in" // Adding AOS animation to each card
-                />
-              ))}
+              {isLoading
+                ? // Render 3 skeletons
+                  Array.from({ length: 3 }).map((_, index) => (
+                    <SkeletonOne key={index} />
+                  ))
+                : data.map((activity) => (
+                    <ActivitiesCards
+                      href={`/activities/${activity.slug}`}
+                      key={activity.id}
+                      src={activity.img}
+                      title={activity.title}
+                      desc={truncateDescription(activity.desc, 10)}
+                      data-aos="zoom-in" // Adding AOS animation to each card
+                    />
+                  ))}
             </Slider>
           </div>
         </div>

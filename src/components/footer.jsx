@@ -12,10 +12,10 @@ export const Footer = () => {
         <div className="text-slate-200 col-span-2 space-y-2 ">
           Logo
           <h5 className="font-bold">HEARTS HOME ACADEMY</h5>
-          <h5 className="text-sm ">
+          {/* <h5 className="text-sm ">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum,
             doloremque veniam.
-          </h5>
+          </h5> */}
           <h5 className="pt-2 ">
             {new Date().getFullYear()} © Copyright Hearts Home Academy.
           </h5>

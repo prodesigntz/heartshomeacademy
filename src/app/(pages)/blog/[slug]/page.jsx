@@ -24,7 +24,7 @@ export default function Page({params}) {
           slug
         );
 
-        console.log("Document Data: ", document);
+        //console.log("Document Data: ", document);
 
         if (didSucceed) {
           setBlog(document);

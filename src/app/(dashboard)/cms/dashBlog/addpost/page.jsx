@@ -196,8 +196,14 @@ export default function AddPost({params}) {
                 <Image
                   src={formData.imgPreview}
                   alt="Current Featured Image"
-                  fill
-                  className="h-32 w-48 object-cover"
+                  width={1000}
+                  height={240}
+                  style={{
+                    maxWidth: "20%",
+                    height: "220px",
+                    objectFit: "cover",
+                  }}
+                  className=" max-w-full max-h-50 rounded-md"
                 />
               </div>
             )}

@@ -18,6 +18,7 @@ export default function AddPrograms({ params }) {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { authUser } = useAppContext();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
     desc: "",
@@ -25,8 +26,6 @@ export default function AddPrograms({ params }) {
     img: null,
     imgPreview: null,
   });
-
-  const router = useRouter();
 
   // Fetch existing post data if progId is provided
   useEffect(() => {
@@ -194,8 +193,14 @@ export default function AddPrograms({ params }) {
                 <Image
                   src={formData.imgPreview}
                   alt="Current Featured Image"
-                  fill
-                  className="h-32 w-48 object-cover"
+                  width={1000}
+                  height={240}
+                  style={{
+                    maxWidth: "20%",
+                    height: "220px",
+                    objectFit: "cover",
+                  }}
+                  className=" max-w-full max-h-50 rounded-md"
                 />
               </div>
             )}

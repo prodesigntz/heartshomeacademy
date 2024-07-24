@@ -72,9 +72,8 @@ export default function Team() {
             first="Teachers & Trainers"
           />
           <HomeParagraph
-            place="center"
-            content=" 
-            Lorem ipsum dolor sit amet consectetur adipisicing elit."
+            place=" md:text-center"
+            content="Highly qualified educators providing personalized and engaging learning experiences for young minds."
           />
         </div>
 

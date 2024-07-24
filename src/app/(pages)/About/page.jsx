@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
-import { FaBaby } from 'react-icons/fa6';
+import { FaShieldAlt } from 'react-icons/fa';
+import { FaBaby, FaPuzzlePiece } from 'react-icons/fa6';
 
 export default function About() {
   return (
@@ -35,8 +36,7 @@ export default function About() {
           />
           <HomeParagraph
             place="start"
-            content=" 
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe incidunt perspiciatis minima nam molestiae, ex sapiente nostrum a repellat alias dolores qui facere, rerum sequi impedit optio, minus aut. "
+            content="Highly qualified educators providing personalized and engaging learning experiences for young minds."
           />
           <div className=" flex items-center space-x-5">
             <Button
@@ -65,15 +65,14 @@ export default function About() {
         <div className="sektion md:grid-cols-3">
           {/* card one */}
           <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
-           
             <div className="flex flex-col space-y-3">
-              <div className="flex items-center">
-                <div>
-                  <FaBaby className="text-3xl"/>
-                </div>
-                <div>
-                  <h2 className="text-2xl fredoka">1</h2>
-                  <h3 className="font-bold fredoka">
+              <div className="flex items-center space-x-5">
+                {/* <div>
+                 <h2 className="text-2xl fredoka">1</h2> 
+                </div> */}
+                <div className="space-y-5">
+                  <FaBaby className="text-3xl md:text-6xl" />
+                  <h3 className="font-bold fredoka md:text-xl">
                     Nurturing Curiosity and Creativity
                   </h3>
                 </div>
@@ -89,50 +88,46 @@ export default function About() {
 
           {/* card one */}
           <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
-            <div className="">
-              <Image
-                src="/images/heros/bghero.jpg"
-                alt="blog"
-                width={280}
-                height={260}
-                style={{
-                  maxWidth: "100%",
-                  height: "160px",
-                  objectFit: "cover",
-                }}
-                className=" max-w-full max-h-50 rounded-md"
-              />
-            </div>
             <div className="flex flex-col space-y-3">
-              <h2 className="text-2xl fredoka">Infants</h2>
-              <h3 className="">6 - 24 Months</h3>
-              <p className="">
-                Eu turpis egestas pretium aenean pharetra magna ac.
+              <div className="flex items-center space-x-5">
+                {/* <div>
+                 <h2 className="text-2xl fredoka">1</h2> 
+                </div> */}
+                <div className="space-y-5">
+                  <FaPuzzlePiece className="text-3xl md:text-6xl" />
+                  <h3 className="font-bold fredoka md:text-xl">
+                    Holistic Development
+                  </h3>
+                </div>
+              </div>
+              <p className="text-sm">
+                We believe in fostering a love for learning by nurturing
+                curiosity and creativity in every child. We provide a
+                stimulating environment where children are encouraged to
+                explore, ask questions, and express their ideas freely.
               </p>
             </div>
           </div>
 
           {/* card one */}
           <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
-            <div className="">
-              <Image
-                src="/images/heros/bghero.jpg"
-                alt="blog"
-                width={280}
-                height={260}
-                style={{
-                  maxWidth: "100%",
-                  height: "160px",
-                  objectFit: "cover",
-                }}
-                className=" max-w-full max-h-50 rounded-md"
-              />
-            </div>
             <div className="flex flex-col space-y-3">
-              <h2 className="text-2xl fredoka">Infants</h2>
-              <h3 className="">6 - 24 Months</h3>
-              <p className="">
-                Eu turpis egestas pretium aenean pharetra magna ac.
+              <div className="flex items-center space-x-5">
+                {/* <div>
+                 <h2 className="text-2xl fredoka">1</h2> 
+                </div> */}
+                <div className="space-y-5">
+                  <FaShieldAlt className="text-3xl md:text-6xl" />
+                  <h3 className="font-bold fredoka md:text-xl">
+                    Safe and Supportive Environment
+                  </h3>
+                </div>
+              </div>
+              <p className="text-sm">
+                We believe in fostering a love for learning by nurturing
+                curiosity and creativity in every child. We provide a
+                stimulating environment where children are encouraged to
+                explore, ask questions, and express their ideas freely.
               </p>
             </div>
           </div>

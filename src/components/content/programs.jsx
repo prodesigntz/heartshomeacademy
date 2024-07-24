@@ -1,38 +1,42 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { HomeParagraph, Title } from '../texties'
 import { Button } from '../ui/button'
 import Image from 'next/image'
-import { fetchDocuments } from '@/firebase/databaseOperations'
 import { truncateDescription } from "@/lib/utils";
 import SkeletonOne from "../skeletonOne";
+import Link from "next/link";
+import useFetchAll from "@/hooks/useFetchAll";
 
 export default function Programs() {
   //states
-   const [data, setData] = useState([]);
-   const [loading, setLoading] = useState(true);
+  // const [data, setData] = useState([]);
+   //const [loading, setLoading] = useState(true);
+   const { isLoading, data } = useFetchAll("Programs");
+
+   //console.log("Programs displayed here...",data)
 
   //Querrying the data from database
-  useEffect(() => {
+  // useEffect(() => {
 
-    //function to fetch documents
-    const fetchData = async () => {
-      //access fetch documents
-      const { didSucceed, items } = await fetchDocuments("Programs");
-      console.log("data here....", items);
+  //   //function to fetch documents
+  //   const fetchData = async () => {
+  //     //access fetch documents
+  //     const { didSucceed, items } = await fetchDocuments("Programs");
+  //     console.log("data here....", items);
 
-      if (didSucceed) {
-        setData(items.slice(0, 3)); // Only take the first 3 items
-        setLoading(false);
-      } else {
-        console.error("Failed to fetch data");
-      }
-    };
+  //     if (didSucceed) {
+  //       setData(items.slice(0, 3)); // Only take the first 3 items
+  //       setLoading(false);
+  //     } else {
+  //       console.error("Failed to fetch data");
+  //     }
+  //   };
     
-    fetchData();
+  //   fetchData();
 
-  }, []);
+  // }, []);
   
   return (
     <section className="psektion bg-[#ffefe2]">
@@ -58,9 +62,8 @@ export default function Programs() {
               first="Step By Step Systematic Education"
             />
             <HomeParagraph
-              place="center"
-              content=" 
-            Lorem ipsum dolor sit amet consectetur adipisicing elit."
+              place=" md:text-center"
+              content="Structured learning that builds on each child's progress to ensure continuous development."
             />
           </div>
           <div
@@ -82,13 +85,11 @@ export default function Programs() {
           <div className="sektion md:grid-cols-3">
             {/* card one */}
 
-            {loading ? (
-              // Render 3 skeletons
-                Array.from({ length: 3 }).map((_, index) => (
+            {isLoading
+              ? Array.from({ length: 3 }).map((_, index) => (
                   <SkeletonOne key={index} />
                 ))
-              ) : ( 
-                data.map((prog) => (
+              : data.slice(0, 3).map((prog) => (
                   <div
                     key={prog.id}
                     className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5"
@@ -109,68 +110,22 @@ export default function Programs() {
                     </div>
                     <div className="flex flex-col space-y-3">
                       <h2 className="text-2xl fredoka hover:text-heartsprimary">
-                        {prog.title}
+                        <Link href={`/programs/${prog.slug}`}>
+                          {prog.title}
+                        </Link>
                       </h2>
                       <h3 className="">{prog.age}</h3>
-                      <p className="">{truncateDescription(prog.desc, 12)}</p>
+                      <p className="">{truncateDescription(prog.desc, 10)}</p>
                     </div>
                   </div>
-                ))
-                )}
-
-            {/* card one */}
-            {/* <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
-              <div className="">
-                <Image
-                  src="/images/heros/bghero.jpg"
-                  alt="blog"
-                  width={280}
-                  height={260}
-                  style={{
-                    maxWidth: "100%",
-                    height: "160px",
-                    objectFit: "cover",
-                  }}
-                  className=" max-w-full max-h-50 rounded-md"
-                />
-              </div>
-              <div className="flex flex-col space-y-3">
-                <h2 className="text-2xl fredoka">Infants</h2>
-                <h3 className="">6 - 24 Months</h3>
-                <p className="">
-                  Eu turpis egestas pretium aenean pharetra magna ac.
-                </p>
-              </div>
-            </div> */}
-
-            {/* card one */}
-            {/* <div className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
-              <div className="">
-                <Image
-                  src="/images/heros/bghero.jpg"
-                  alt="blog"
-                  width={280}
-                  height={260}
-                  style={{
-                    maxWidth: "100%",
-                    height: "160px",
-                    objectFit: "cover",
-                  }}
-                  className=" max-w-full max-h-50 rounded-md"
-                />
-              </div>
-              <div className="flex flex-col space-y-3">
-                <h2 className="text-2xl fredoka">Infants</h2>
-                <h3 className="">6 - 24 Months</h3>
-                <p className="">
-                  Eu turpis egestas pretium aenean pharetra magna ac.
-                </p>
-              </div>
-            </div> */}
+                ))}
           </div>
           <div className=" flex items-center justify-center ">
-            <Button className="rounded-full text-center text-lg p-6 bg-heartssecondary hover:border hover:border-heartsprimary hover:text-black">
-              View More
+            <Button
+              asChild
+              className="rounded-full text-center text-lg p-6 bg-heartssecondary hover:border hover:border-heartsprimary hover:text-black"
+            >
+              <Link href="/programs">View More</Link>
             </Button>
           </div>
         </div>

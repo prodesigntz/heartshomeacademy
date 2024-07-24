@@ -3,13 +3,13 @@ import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-export const ActivitiesCards=({ src, title, desc })=> {
+export const ActivitiesCards=({ src, title,href, desc })=> {
   return (
     <div className="shadow-md flex flex-col p-5 space-y-5 text-center">
       <div>
         <Image
           src={src}
-          alt="blog"
+          alt="activities"
           width={1000}
           height={240}
           style={{
@@ -21,7 +21,7 @@ export const ActivitiesCards=({ src, title, desc })=> {
         />
       </div>
       <div>
-        <h3 className="font-semibold fredoka text-xl ">{title}</h3>
+        <h3 className="font-semibold fredoka text-xl "><Link href={href}>{title}</Link></h3>
       </div>
       <div>
         <p className="">{desc}</p>

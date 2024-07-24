@@ -6,8 +6,14 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { facilitiesData } from '@/data/facilitiesData'
 import Image from 'next/image';
+import useFetchAll from '@/hooks/useFetchAll';
+import SkeletonOne from '../skeletonOne';
+import { truncateDescription } from '@/lib/utils';
 
 export default function Facilities() {
+
+  const {isLoading, data} = useFetchAll("Facilities")
+
    const settings = {
      dots: true,
      //  autoplay: true,
@@ -45,6 +51,7 @@ export default function Facilities() {
        },
      ],
    };
+
   return (
     <section className="psektion respons space-y-10 ">
       {/* top column */}
@@ -70,8 +77,7 @@ export default function Facilities() {
           />
           <HomeParagraph
             place="center"
-            content=" 
-            Lorem ipsum dolor sit amet consectetur adipisicing elit."
+            content="A vibrant and expansive campus designed for active learning and exploration."
           />
         </div>
 
@@ -92,15 +98,20 @@ export default function Facilities() {
       {/* bottom collumn */}
       <div className="slider-container">
         <Slider {...settings}>
-          {facilitiesData.map((facility, id) => (
-            <FacilitiesCards
-              key={id}
-              src={facility.img}
-              title={facility.title}
-              desc={facility.desc}
-              data-aos="zoom-in" // Adding AOS animation to each card
-            />
-          ))}
+          {isLoading
+            ? // Render 3 skeletons
+              Array.from({ length: 4 }).map((_, index) => (
+                <SkeletonOne key={index} />
+              ))
+            : data.map((facility, id) => (
+                <FacilitiesCards
+                  key={id}
+                  src={facility.img}
+                  title={facility.title}
+                  desc={truncateDescription(facility.desc, 12)}
+                  data-aos="zoom-in" // Adding AOS animation to each card
+                />
+              ))}
         </Slider>
       </div>
     </section>

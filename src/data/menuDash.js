@@ -70,6 +70,24 @@ export const menuDashItem = [
   },
 
   {
+    name: "Facilities",
+
+    subMenu: [
+      {
+        name: "List Facilities",
+        path: "/cms/dashFacilities",
+        icon: "",
+      },
+
+      {
+        name: "Add Facilities",
+        path: "/cms/dashFacilities/addfacility",
+        icon: "",
+      },
+    ],
+  },
+
+  {
     name: "Enrollment",
 
     subMenu: [
@@ -83,7 +101,6 @@ export const menuDashItem = [
         path: "/cms/dashEnrollment/reqEnrollment",
         icon: "",
       },
-    
     ],
   },
 

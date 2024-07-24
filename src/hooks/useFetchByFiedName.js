@@ -21,7 +21,7 @@ function useFetchByFieldName(cln, info) {
       const controller = new AbortController();
       controller.abort();
     };
-  }, [info]);
+  }, [cln,info]);
 
   return { isLoading, didSucceed, data };
 }
