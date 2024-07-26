@@ -1,3 +1,5 @@
+"use client"
+
 import Accomplishment from '@/components/content/accomplishment'
 import Programs from '@/components/content/programs'
 import Team from '@/components/team';
