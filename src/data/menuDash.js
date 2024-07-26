@@ -130,11 +130,11 @@ export const menuDashItem = [
         path: "/cms/dashInquiry",
         icon: "",
       },
-      {
-        name: "View Inquiry",
-        path: "/cms/dashInquiry/view-inquiry",
-        icon: "",
-      },
+      // {
+      //   name: "View Inquiry",
+      //   path: "/cms/dashInquiry/view-inquiry",
+      //   icon: "",
+      // },
     ],
   },
 
