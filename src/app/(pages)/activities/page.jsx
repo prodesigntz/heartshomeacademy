@@ -6,7 +6,7 @@ import useFetchAll from '@/hooks/useFetchAll';
 import { truncateDescription } from '@/lib/utils';
 import React from 'react'
 
-export default function Programs() {
+export default function Activities() {
   const { isLoading, data } = useFetchAll("Activities");
 
   return (

@@ -5,12 +5,12 @@ export const menuData = [
   },
   {
     name: "About",
-    link: "/about",
+    link: "/about-us",
   },
   {
     name: "Programs",
     link: "/programs",
-  },
+  },        
   {
     name: "Events",
     link: "/events",
