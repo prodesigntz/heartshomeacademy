@@ -12,64 +12,58 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import { IoDuplicate } from "react-icons/io5";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { fetchDocuments, deleteDocument } from "@/firebase/databaseOperations";
-import { FaEye } from "react-icons/fa6";
 
-export default function Page() {
-  const [data, setData] = useState([]);
-  const router = useRouter();
+export default function AllTeachers() {
+    const [data, setData] = useState([]);
+    const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
-      const { didSucceed, items } = await fetchDocuments("Events");
+      const { didSucceed, items } = await fetchDocuments("Blogpost");
       //console.log("Items:...", items)
 
       if (didSucceed) {
         setData(items);
       } else {
-        console.error("Failed to fetch Events posts");
+        console.error("Failed to fetch blog posts");
       }
     };
 
     fetchData();
   }, []);
 
-  const handleDelete = async (eventId) => {
-    const { didSucceed } = await deleteDocument("Events", eventId);
+
+  const handleDelete = async (postId) => {
+    const { didSucceed } = await deleteDocument("Blogpost", postId);
     if (didSucceed) {
-      setData((prevData) => prevData.filter((post) => post.id !== eventId));
+      setData((prevData) => prevData.filter((post) => post.id !== postId));
     } else {
       console.error("Failed to delete post");
     }
   };
 
+  
+
+  
   return (
     <main className="space-y-10">
-      <section className="sektion md:grid-cols-2">
-        <div></div>
-        <div className="flex items-center justify-center md:justify-end">
-          <Button
-            asChild
-            variant="hearts-primary"
-            className="rounded-full bg-heartsprimary text-white"
-          >
-            <Link href="/cms/dashEvents/addevents">Create Events</Link>
-          </Button>
-        </div>
-      </section>
+    
       <section>
         <Table className="">
-          <TableCaption>List of Events </TableCaption>
+          <TableCaption>List of Blog Posts</TableCaption>
 
           <TableHeader>
             <TableRow>
               <TableHead>Sno.</TableHead>
               <TableHead>Image</TableHead>
               <TableHead>Title</TableHead>
-              <TableHead>Description</TableHead>
+              <TableHead>Author</TableHead>
+              <TableHead>Category</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -97,13 +91,15 @@ export default function Page() {
                 <TableCell>
                   <h3 className="text-base">{item.title}</h3>
                 </TableCell>
-
                 <TableCell>
-                  <h3>{item.eventDate}</h3>
+                  <h3>{item.author}</h3>
+                </TableCell>
+                <TableCell>
+                  <h3>{item.category}</h3>
                 </TableCell>
                 <TableCell className="items-center space-x-1">
                   <Button
-                    onClick={() => router.push(`/cms/dashEvents/${item.id}`)}
+                    onClick={() => router.push(`/cms/dashBlog/${item.id}`)}
                     className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
                   >
                     <FaEdit />
@@ -119,7 +115,8 @@ export default function Page() {
                     className="bg-heartsprimary text-white hover:bg-heartsprimary"
                   >
                     <Link
-                      href={`/cms/dashEvents/viewEvent/${item.id}`}
+                      href={`/blog/${item.slug}`}
+                      target="_blank"
                       rel="noopener noreferrer"
                     >
                       <FaEye />

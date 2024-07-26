@@ -14,7 +14,7 @@ import Image from "next/image";
 
 export default function AddPost({params}) {
   const { postId } = useParams();
-  console.log("Post ID:...", postId);
+  //console.log("Post ID:...", postId);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { authUser } = useAppContext();
@@ -196,8 +196,14 @@ export default function AddPost({params}) {
                 <Image
                   src={formData.imgPreview}
                   alt="Current Featured Image"
-                  fill
-                  className="h-32 w-48 object-cover"
+                  width={280}
+                  height={260}
+                  style={{
+                    maxWidth: "100%",
+                    height: "160px",
+                    objectFit: "cover",
+                  }}
+                  className=" max-w-full max-h-50 rounded-md"
                 />
               </div>
             )}

@@ -13,60 +13,58 @@ import { getSlug } from "@/lib/utils";
 import Image from "next/image";
 
 export default function AddEvent({ params }) {
-  const { actId } = useParams();
+  const { eventId } = useParams();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { authUser } = useAppContext();
   const [formData, setFormData] = useState({
     title: "",
     desc: "",
-    age: "",
-    //updated
     obj: "",
     duration: "",
-    freq: "",
-    //updated
+    eventDate: "",
+    age: "",
+    days: "",
     img: null,
     imgPreview: null,
   });
 
   const router = useRouter();
 
-  // Fetch existing post data if actId is provided
+  // Fetch existing post data if eventId is provided
   useEffect(() => {
-    if (actId) {
+    if (eventId) {
       const fetchPost = async () => {
         setIsLoading(true);
         try {
           const { didSucceed, document } = await getSingleDocument(
-            "Activities",
-            actId
+            "Events",
+            eventId
           );
           if (didSucceed) {
             setFormData({
               title: document.title,
               desc: document.desc,
-              age: document.age,
-              //updated
               obj: document.obj,
               duration: document.duration,
-              freq: document.freq,
-              //updated
+              eventDate: document.eventDate,
+              age: document.age,
+              days: document.days,
               img: document.img || null,
               imgPreview: document.img || null,
             });
           } else {
-            setError("Failed to fetch activity data.");
+            setError("Failed to fetch Event data.");
           }
         } catch (fetchError) {
-          setError(`Error fetching activity data: ${fetchError.message}`);
+          setError(`Error fetching Event data: ${fetchError.message}`);
         }
         setIsLoading(false);
       };
 
       fetchPost();
     }
-  }, [actId]);
+  }, [eventId]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -80,7 +78,7 @@ export default function AddEvent({ params }) {
     }
   };
 
-  const handleActivitySave = async (e) => {
+  const handleEventSave = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
@@ -89,41 +87,40 @@ export default function AddEvent({ params }) {
       let imageUrl = formData.img;
 
       if (formData.img && typeof formData.img !== "string") {
-        imageUrl = await imageUploadToFirebase(formData.img, "activityImages");
+        imageUrl = await imageUploadToFirebase(formData.img, "eventImages");
       }
 
       const slug = getSlug(formData.title);
 
-      const activityData = {
+      const eventData = {
         title: formData.title,
         desc: formData.desc,
         author: authUser?.username || "Anonymous",
-        age: formData.age,
-        //updated
         obj: formData.obj,
         duration: formData.duration,
-        freq: formData.freq,
-        //updated
+        eventDate: formData.eventDate,
+        age: formData.age,
+        days: formData.days,
         img: imageUrl,
         updatedAt: new Date().toISOString(),
         slug,
       };
 
       let result;
-      if (actId) {
-        result = await updateDocument("Activities", actId, activityData);
+      if (eventId) {
+        result = await updateDocument("Events", eventId, eventData);
       } else {
-        activityData.createdAt = new Date().toISOString();
-        result = await createDocument(activityData, "Activities");
+        eventData.createdAt = new Date().toISOString();
+        result = await createDocument(eventData, "Events");
       }
 
       if (result.didSucceed) {
-        router.push("/cms/dashActivity"); // Replace with your CMS route
+        router.push("/cms/dashEvents"); // Replace with your CMS route
       } else {
-        setError("Failed to save activity post.");
+        setError("Failed to save Event post.");
       }
     } catch (error) {
-      console.error("Activity save error:", error.message);
+      console.error("Event save error:", error.message);
       setError(error.message);
     } finally {
       setIsLoading(false);
@@ -134,9 +131,9 @@ export default function AddEvent({ params }) {
     <main>
       <div className="bg-white shadow-lg rounded-lg p-8 w-full">
         <h1 className="text-2xl font-bold text-center text-slate-700 mb-6">
-          {actId ? "Update Activity" : "Create a Activity"}
+          {eventId ? "Update Event" : "Create a Event"}
         </h1>
-        <form onSubmit={handleActivitySave}>
+        <form onSubmit={handleEventSave}>
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
@@ -172,26 +169,58 @@ export default function AddEvent({ params }) {
               required
             />
           </div>
-          {/* obj: document.obj,  */}
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
-              htmlFor="desc"
+              htmlFor="obj"
             >
               Objective
             </label>
             <textarea
               className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
               id="obj"
-              placeholder="Enter Ojective Here"
+              placeholder="Enter Objective Here"
               name="obj"
               value={formData.obj}
               onChange={handleChange}
               required
             />
           </div>
-
-          {/* age */}
+          <div className="mb-4">
+            <label
+              className="block text-slate-700 text-sm font-bold mb-2"
+              htmlFor="duration"
+            >
+              Duration
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="duration"
+              type="text"
+              placeholder="Enter Duration"
+              name="duration"
+              value={formData.duration}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-slate-700 text-sm font-bold mb-2"
+              htmlFor="eventDate"
+            >
+              Event Date
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="eventDate"
+              type="date"
+              name="eventDate"
+              value={formData.eventDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
@@ -210,48 +239,24 @@ export default function AddEvent({ params }) {
               required
             />
           </div>
-
-          {/* duration: document.duration,  */}
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
-              htmlFor="duration"
+              htmlFor="days"
             >
-              Duration
+              Event Days
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="duration"
+              id="days"
               type="text"
-              placeholder="Duration"
-              name="duration"
-              value={formData.duration}
+              placeholder="Days"
+              name="days"
+              value={formData.days}
               onChange={handleChange}
               required
             />
           </div>
-
-          {/* freq: document.freq, */}
-          <div className="mb-4">
-            <label
-              className="block text-slate-700 text-sm font-bold mb-2"
-              htmlFor="freq"
-            >
-              Activity Frequency
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="freq"
-              type="text"
-              placeholder="Frequency"
-              name="freq"
-              value={formData.freq}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          {/* Featured Image */}
           <div className="mb-4">
             <label
               className="block text-slate-700 text-sm font-bold mb-2"
@@ -282,8 +287,6 @@ export default function AddEvent({ params }) {
               </div>
             )}
           </div>
-
-          {/* Error Pop Up */}
           {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
           <div className="flex items-center justify-between mb-4">
             <button
@@ -292,12 +295,12 @@ export default function AddEvent({ params }) {
               disabled={isLoading}
             >
               {isLoading
-                ? actId
-                  ? "Updating Activity..."
-                  : "Creating Activity..."
-                : actId
-                ? "Update Activity"
-                : "Create Activity"}
+                ? eventId
+                  ? "Updating Event..."
+                  : "Creating Event..."
+                : eventId
+                ? "Update Event"
+                : "Create Event"}
             </button>
           </div>
         </form>

@@ -1,4 +1,5 @@
-//import { fetchDocuments } from "@/firebase/databaseOperations";
+"use client";
+
 import { fetchDocuments } from "@/firebase/databaseOperations";
 import { useState, useEffect } from "react";
 

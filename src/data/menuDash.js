@@ -118,11 +118,6 @@ export const menuDashItem = [
         path: "/cms/dashEvents/addevents",
         icon: "",
       },
-      {
-        name: "View Event",
-        path: "/cms/dashEvents/viewevent",
-        icon: "",
-      },
     ],
   },
 
@@ -188,28 +183,28 @@ export const menuDashItem = [
 
     subMenu: [
       {
-        name: "Profile",
-        path: "cms/profile",
+        name: "All Users",
+        path: "/cms/dashUsers",
         icon: "",
       },
       {
         name: "Add Users",
-        path: "cms/addUsers",
+        path: "/cms/dashUsers/addUsers",
         icon: "",
       },
       {
         name: "Parents",
-        path: "cms/parents",
+        path: "/cms/dashUsers/parents/allParents",
         icon: "",
       },
       {
         name: "Staffs",
-        path: "cms/staffs",
+        path: "/cms/dashUsers/staff/allStaff",
         icon: "",
       },
       {
         name: "Students",
-        path: "cms/students",
+        path: "/cms/dashUsers/students/allStudents",
         icon: "",
       },
     ],

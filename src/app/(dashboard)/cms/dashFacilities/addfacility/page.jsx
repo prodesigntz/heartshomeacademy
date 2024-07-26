@@ -33,7 +33,7 @@ export default function AddFacility({ params }) {
         setIsLoading(true);
         try {
           const { didSucceed, document } = await getSingleDocument(
-            "Activities",
+            "Facilities",
             facId
           );
           if (didSucceed) {

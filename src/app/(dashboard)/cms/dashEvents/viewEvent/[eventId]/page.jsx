@@ -1,0 +1,162 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { getSingleDocument } from "@/firebase/databaseOperations";
+import Image from "next/image";
+import SkeletonOne from "@/components/skeletonOne";
+
+export default function ViewEvent({ params }) {
+  const { eventId } = useParams();
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [eventData, setEventData] = useState({
+    title: "",
+    desc: "",
+    obj: "",
+    duration: "",
+    eventDate: "",
+    age: "",
+    days: "",
+    img: null,
+  });
+
+  // Fetch existing event data if eventId is provided
+  useEffect(() => {
+    if (eventId) {
+      const fetchEvent = async () => {
+        setIsLoading(true);
+        try {
+          const { didSucceed, document } = await getSingleDocument(
+            "Events",
+            eventId
+          );
+          if (didSucceed) {
+            setEventData({
+              title: document.title,
+              desc: document.desc,
+              obj: document.obj,
+              duration: document.duration,
+              eventDate: document.eventDate,
+              age: document.age,
+              days: document.days,
+              img: document.img || null,
+            });
+          } else {
+            setError("Failed to fetch Event data.");
+          }
+        } catch (fetchError) {
+          setError(`Error fetching Event data: ${fetchError.message}`);
+        }
+        setIsLoading(false);
+      };
+
+      fetchEvent();
+    }
+  }, [eventId]);
+
+  return (
+    <main>
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full">
+        <h1 className="text-2xl font-bold text-center text-slate-700 mb-6">
+          Event Details
+        </h1>
+        {isLoading ? (
+          <div className=" psektion respons">
+            <SkeletonOne />
+          </div>
+        ) : (
+          <section className="respons space-y-5">
+            <div className="sektion md:grid-cols-3">
+              {/* image here */}
+              <div>
+                {eventData.img && (
+                  <div className="mt-2">
+                    <Image
+                      src={eventData.img}
+                      alt="Current Featured Image"
+                      width={280}
+                      height={260}
+                      style={{
+                        maxWidth: "100%",
+                        height: "160px",
+                        objectFit: "cover",
+                      }}
+                      className="max-w-full max-h-50 rounded-md"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Details Here */}
+              <div className="col-span-2 space-y-3">
+                <h2 className="text-xl text-slate-700 leading-tight">
+                  {eventData.title}
+                </h2>
+
+                <div className="sektion md:grid-cols-4 md:content-center">
+                  <div className="">
+                    <label className="block text-slate-700 text-sm font-bold mb-2">
+                      Duration
+                    </label>
+                    <p className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight">
+                      {eventData.duration}
+                    </p>
+                  </div>
+                  <div className="">
+                    <label className="block text-slate-700 text-sm font-bold mb-2">
+                      Event Date
+                    </label>
+                    <p className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight">
+                      {eventData.eventDate}
+                    </p>
+                  </div>
+                  <div className="">
+                    <label className="block text-slate-700 text-sm font-bold mb-2">
+                      Age
+                    </label>
+                    <p className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight">
+                      {eventData.age}
+                    </p>
+                  </div>
+                  <div className="">
+                    <label className="block text-slate-700 text-sm font-bold mb-2">
+                      Event Days
+                    </label>
+                    <p className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight">
+                      {eventData.days}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="">
+                  <label className="block text-slate-700 text-sm font-bold mb-2">
+                    Objective
+                  </label>
+                  <p className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight">
+                    {eventData.obj}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="sektion space-y-3">
+              <div className="">
+                <label className="block text-slate-700 text-sm font-bold mb-2">
+                  Content
+                </label>
+                <p className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight">
+                  {eventData.desc}
+                </p>
+              </div>
+            </div>
+
+            {error && (
+              <p className="text-red-500 text-xs italic mb-4">{error}</p>
+            )}
+          </section>
+        )}
+      </div>
+    </main>
+  );
+}

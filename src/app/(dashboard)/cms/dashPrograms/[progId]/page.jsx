@@ -194,8 +194,14 @@ export default function AddPrograms({ params }) {
                 <Image
                   src={formData.imgPreview}
                   alt="Current Featured Image"
-                  fill
-                  className="h-32 w-48 object-cover"
+                  width={280}
+                  height={260}
+                  style={{
+                    maxWidth: "100%",
+                    height: "160px",
+                    objectFit: "cover",
+                  }}
+                  className=" max-w-full max-h-50 rounded-md"
                 />
               </div>
             )}

@@ -3,11 +3,11 @@
 import React, { useEffect } from "react";
 
 import NavBar from "@/components/navbar";
-import Landing from "./(pages)/landing/page";
 import { Footer } from "@/components/footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import TawtoMessenger from "@/components/tawtoMessenger";
+import Landing from "./(pages)/landing/page";
 
 export default function Home() {
  
@@ -24,7 +24,7 @@ export default function Home() {
     
 
       <NavBar />
-      <Landing />  
+      <Landing/>
       <TawtoMessenger/>
       <Footer />
     </main>

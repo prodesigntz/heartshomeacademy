@@ -17,22 +17,26 @@ export default function Hero() {
           />
           <HomeParagraph
             place=""
-            content=" 
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe incidunt perspiciatis minima nam molestiae, ex sapiente nostrum a repellat alias dolores qui facere, rerum sequi impedit optio, minus aut. "
+            content="Empowering young minds with the foundation to achieve their dreams and aspirations. Committed to providing every child with the opportunities and support for a successful future."
           />
           <div className=" flex items-center space-x-5">
             <Button
               asChild
               className="rounded-full text-xl p-6 bg-heartssecondary md:border-heartssecondary"
             >
-              <Link href="/enroll" className="">Enroll Now</Link>
+              <Link href="/enroll" className="">
+                Enroll Now
+              </Link>
             </Button>
             <Button
               asChild
               variant="outline"
               className="rounded-full text-xl p-6 hover:bg-heartssecondary bg-transparent hover:border-heartssecondary hover:text-white"
             >
-              <Link href="/contact" className=""> Get Intouch</Link>
+              <Link href="/contact" className="">
+                {" "}
+                Get Intouch
+              </Link>
             </Button>
           </div>
         </div>

@@ -30,8 +30,7 @@ export default function Intro() {
           />
           <HomeParagraph
             place="start"
-            content=" 
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe incidunt perspiciatis minima nam molestiae, ex sapiente nostrum a repellat alias dolores qui facere, rerum sequi impedit optio, minus aut. "
+            content="At Hearts Home Academy, we create a safe and nurturing environment where children thrive through engaging and holistic education. We emphasize creativity, curiosity, and comprehensive development, laying a strong foundation for lifelong learning and success."
           />
           <div className=" flex items-center space-x-5">
             <Button
