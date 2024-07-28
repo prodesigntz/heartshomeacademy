@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { getSingleDocument } from "@/firebase/databaseOperations";
+import { getSingleDocument, updateDocument } from "@/firebase/databaseOperations";
 import Image from "next/image";
 import SkeletonOne from "@/components/skeletonOne";
 
@@ -19,7 +19,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 import Link from "next/link";
+import { DialogPop } from "@/components/dialogPop";
 
 export default function ViewEvent({ params }) {
   const { eventId } = useParams();
@@ -34,9 +36,9 @@ export default function ViewEvent({ params }) {
     age: "",
     days: "",
     img: null,
-    atendees:[],
+    atendees: [],
   });
-   
+
   const hudhuria = eventData.attendees;
 
   // Fetch existing event data if eventId is provided
@@ -55,7 +57,6 @@ export default function ViewEvent({ params }) {
             });
 
             //console.log("Attendees data here:...", document.attendees);
-
           } else {
             setError("Failed to fetch Event data.");
           }
@@ -63,13 +64,31 @@ export default function ViewEvent({ params }) {
           setError(`Error fetching Event data: ${fetchError.message}`);
         }
 
-       // console.log("Wataaofika....", hudhuria);
+        // console.log("Wataaofika....", hudhuria);
         setIsLoading(false);
       };
 
       fetchEvent();
     }
   }, [eventId]);
+
+  //Handle save and update the comment and staturs
+  // const handleSaveChanges = async ({ comment, status }, inquiry) => {
+  //   const updatedInquiry = { ...inquiry, comment, status };
+  //   const { didSucceed } = await updateDocument(
+  //     "Events",
+  //     inquiry.id,
+  //     updatedInquiry
+  //   );
+
+  //   if (didSucceed) {
+  //     setData((prevData) =>
+  //       prevData.map((item) => (item.id === inquiry.id ? updatedInquiry : item))
+  //     );
+  //   } else {
+  //     console.error("Failed to update inquiry");
+  //   }
+  // };
 
   return (
     <main>
@@ -174,17 +193,16 @@ export default function ViewEvent({ params }) {
               <Attendee attendee={eventData} />
             </div> */}
 
-            <div>
-              <section className="sektion md:grid-cols-2">
-                <div></div>
-                <div className="flex items-center justify-center md:justify-end">
+            <div className="mt-20 space-y-5">
+              <section className="">
+                <div className="flex items-center justify-center">
                   <Button
                     asChild
                     variant="hearts-primary"
                     className="rounded-full bg-heartsprimary text-white"
                   >
                     <Link href="/cms/dashEvents/addevents">
-                      Create Attendee
+                      List of Attendees
                     </Link>
                   </Button>
                 </div>
@@ -204,10 +222,11 @@ export default function ViewEvent({ params }) {
                   </TableHeader>
 
                   <TableBody>
-                    {hudhuria && hudhuria.map((item, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{index + 1}</TableCell>
-                        {/* <TableCell>
+                    {hudhuria &&
+                      hudhuria.map((item, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{index + 1}</TableCell>
+                          {/* <TableCell>
                           {item.img && (
                             <Image
                               src={item.img}
@@ -223,45 +242,73 @@ export default function ViewEvent({ params }) {
                             />
                           )}
                         </TableCell> */}
-                        <TableCell>
-                          <h3 className="text-base">{item.name}</h3>
-                        </TableCell>
-                        <TableCell>
-                          <h3 className="text-base">{item.phone}</h3>
-                        </TableCell>
 
-                        <TableCell>
-                          <h3>{item.email}</h3>
-                        </TableCell>
-                        <TableCell className="items-center space-x-1">
-                          <Button
-                            onClick={() =>
-                              router.push(`/cms/dashEvents/${item.id}`)
-                            }
-                            className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
-                          >
-                            <FaEdit />
-                          </Button>
-                          <Button
-                            onClick={() => handleDelete(item.id)}
-                            className="bg-heartsprimary text-white hover:bg-heartsprimary"
-                          >
-                            <FaTrash />
-                          </Button>
-                          <Button
-                            asChild
-                            className="bg-heartsprimary text-white hover:bg-heartsprimary"
-                          >
-                            <Link
-                              href={`/cms/dashEvents/viewEvent/${item.id}`}
-                              rel="noopener noreferrer"
+                          <TableCell>
+                            <h3 className="text-base">{item.name}</h3>
+                          </TableCell>
+                          <TableCell>
+                            <h3 className="text-base">{item.phone}</h3>
+                          </TableCell>
+
+                          <TableCell>
+                            <h3>{item.email}</h3>
+                          </TableCell>
+                          <TableCell className="items-center space-x-1">
+                            <Button
+                              onClick={() =>
+                                router.push(`/cms/dashEvents/${item.id}`)
+                              }
+                              className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
                             >
-                              <FaEye />
-                            </Link>
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                              <FaEdit />
+                            </Button>
+                            <Button
+                              onClick={() => handleDelete(item.id)}
+                              className="bg-heartsprimary text-white hover:bg-heartsprimary"
+                            >
+                              <FaTrash />
+                            </Button>
+
+                            {/* <Button
+                              asChild
+                              className="bg-heartsprimary text-white hover:bg-heartsprimary"
+                            >
+                              <Link
+                                href={`/cms/dashEvents/viewEvent/${item.id}`}
+                                rel="noopener noreferrer"
+                              >
+                                <FaEye />
+                              </Link>
+                            </Button> */}
+
+                            <DialogPop
+                              btnTitle={<FaEye />}
+                              title="Inquiry Details"
+                              content={
+                                <div className="space-y-4 p-5 bg-heartstertiary">
+                                  <p>
+                                    <strong>Name:</strong> {item.name}
+                                  </p>
+                                  <p>
+                                    <strong>Phone:</strong> {item.phone}
+                                  </p>
+                                  <p>
+                                    <strong>Email:</strong> {item.email}
+                                  </p>
+                                  <p>
+                                    <strong>Message:</strong> {item.desc}
+                                  </p>
+                                  <p>
+                                    <strong>Date:</strong>{" "}
+                                    {new Date(item.createdAt).toLocaleString()}
+                                  </p>
+                                </div>
+                              }
+                              onSave={() => {}}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
               </section>
