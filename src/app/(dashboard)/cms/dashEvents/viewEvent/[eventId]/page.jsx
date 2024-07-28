@@ -197,13 +197,11 @@ export default function ViewEvent({ params }) {
               <section className="">
                 <div className="flex items-center justify-center">
                   <Button
-                    asChild
+                  
                     variant="hearts-primary"
                     className="rounded-full bg-heartsprimary text-white"
                   >
-                    <Link href="/cms/dashEvents/addevents">
-                      List of Attendees
-                    </Link>
+                    List of Attendees
                   </Button>
                 </div>
               </section>
