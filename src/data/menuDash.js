@@ -30,17 +30,17 @@ export const menuDashItem = [
     subMenu: [
       {
         name: "Exams",
-        path: "/cms/dashAcademics/exams",
+        path: "#",
         icon: "",
       },
       {
         name: "Attendance",
-        path: "/cms/attendance",
+        path: "#",
         icon: "",
       },
       {
         name: "Homework",
-        path: "/cms/homework",
+        path: "#",
         icon: "",
       },
       {

@@ -48,10 +48,10 @@ export function MobileNav() {
             <SheetClose asChild>
               <div className="flex items-center justify-start space-x-5">
                 {/* Logins/Signup  */}
-                <Link href="/login">Login</Link>
+                {/* <Link href="/login">Login</Link> */}
 
                 <Button>
-                  <Link href="/register">Register</Link>
+                  <Link href="/login">Login</Link>
                 </Button>
               </div>
             </SheetClose>

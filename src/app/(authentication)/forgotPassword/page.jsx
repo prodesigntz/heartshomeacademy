@@ -71,7 +71,7 @@ export default function ForgotPasswordPage() {
           <p className="text-slate-700 text-sm">
             Already have an account?{" "}
             <Link
-              href="/signup"
+              href="/sigin"
               className="font-bold text-blue-500 hover:text-blue-800"
             >
               Sign In
