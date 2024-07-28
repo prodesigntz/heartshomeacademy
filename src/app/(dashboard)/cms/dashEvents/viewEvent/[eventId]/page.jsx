@@ -6,6 +6,21 @@ import { getSingleDocument } from "@/firebase/databaseOperations";
 import Image from "next/image";
 import SkeletonOne from "@/components/skeletonOne";
 
+//import Attendee from "../attendee";
+import { FaEye } from "react-icons/fa6";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import Link from "next/link";
+
 export default function ViewEvent({ params }) {
   const { eventId } = useParams();
   const [error, setError] = useState(null);
@@ -19,7 +34,10 @@ export default function ViewEvent({ params }) {
     age: "",
     days: "",
     img: null,
+    atendees:[],
   });
+   
+  const hudhuria = eventData.attendees;
 
   // Fetch existing event data if eventId is provided
   useEffect(() => {
@@ -33,21 +51,19 @@ export default function ViewEvent({ params }) {
           );
           if (didSucceed) {
             setEventData({
-              title: document.title,
-              desc: document.desc,
-              obj: document.obj,
-              duration: document.duration,
-              eventDate: document.eventDate,
-              age: document.age,
-              days: document.days,
-              img: document.img || null,
+              ...document,
             });
+
+            //console.log("Attendees data here:...", document.attendees);
+
           } else {
             setError("Failed to fetch Event data.");
           }
         } catch (fetchError) {
           setError(`Error fetching Event data: ${fetchError.message}`);
         }
+
+       // console.log("Wataaofika....", hudhuria);
         setIsLoading(false);
       };
 
@@ -140,6 +156,7 @@ export default function ViewEvent({ params }) {
               </div>
             </div>
 
+            {/* Content Here */}
             <div className="sektion space-y-3">
               <div className="">
                 <label className="block text-slate-700 text-sm font-bold mb-2">
@@ -149,6 +166,105 @@ export default function ViewEvent({ params }) {
                   {eventData.desc}
                 </p>
               </div>
+            </div>
+
+            {/* Attendees List Here */}
+
+            {/* <div className="mt-10">
+              <Attendee attendee={eventData} />
+            </div> */}
+
+            <div>
+              <section className="sektion md:grid-cols-2">
+                <div></div>
+                <div className="flex items-center justify-center md:justify-end">
+                  <Button
+                    asChild
+                    variant="hearts-primary"
+                    className="rounded-full bg-heartsprimary text-white"
+                  >
+                    <Link href="/cms/dashEvents/addevents">
+                      Create Attendee
+                    </Link>
+                  </Button>
+                </div>
+              </section>
+              <section>
+                <Table className="">
+                  <TableCaption>List of Events </TableCaption>
+
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Sno.</TableHead>
+                      <TableHead>Full Name</TableHead>
+                      <TableHead>Phone</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+
+                  <TableBody>
+                    {hudhuria && hudhuria.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{index + 1}</TableCell>
+                        {/* <TableCell>
+                          {item.img && (
+                            <Image
+                              src={item.img}
+                              alt="blog"
+                              width={80}
+                              height={60}
+                              style={{
+                                maxWidth: "100%",
+                                height: "60px",
+                                objectFit: "cover",
+                              }}
+                              className="max-w-full max-h-50 rounded-md"
+                            />
+                          )}
+                        </TableCell> */}
+                        <TableCell>
+                          <h3 className="text-base">{item.name}</h3>
+                        </TableCell>
+                        <TableCell>
+                          <h3 className="text-base">{item.phone}</h3>
+                        </TableCell>
+
+                        <TableCell>
+                          <h3>{item.email}</h3>
+                        </TableCell>
+                        <TableCell className="items-center space-x-1">
+                          <Button
+                            onClick={() =>
+                              router.push(`/cms/dashEvents/${item.id}`)
+                            }
+                            className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
+                          >
+                            <FaEdit />
+                          </Button>
+                          <Button
+                            onClick={() => handleDelete(item.id)}
+                            className="bg-heartsprimary text-white hover:bg-heartsprimary"
+                          >
+                            <FaTrash />
+                          </Button>
+                          <Button
+                            asChild
+                            className="bg-heartsprimary text-white hover:bg-heartsprimary"
+                          >
+                            <Link
+                              href={`/cms/dashEvents/viewEvent/${item.id}`}
+                              rel="noopener noreferrer"
+                            >
+                              <FaEye />
+                            </Link>
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </section>
             </div>
 
             {error && (
