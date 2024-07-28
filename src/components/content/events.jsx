@@ -1,32 +1,25 @@
 import React from "react";
 import { HomeParagraph, Title } from "../texties";
 import Image from "next/image";
-import useFetchMultipleJoin from "@/hooks/useFetchMultipleJoin";
 import { EventsCards } from "../cards";
+import useFetchAll from "@/hooks/useFetchAll";
+import SkeletonOne from "../skeletonOne";
+import { truncateDescription } from "@/lib/utils";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
-export default function Gallery() {
-  const { isLoading, didSucceed, data } = useFetchMultipleJoin([
-    "Activities",
-    "Facilities",
-    "Programs",
-    "Blogpost",
-  ]);
-
-  // Extract image URLs from the data
-  const images = data.map((item) => item.img).filter((url) => url); // Adjust based on your data structure
-
-  // Shuffle images for random display
-  const shuffledImages = images.sort(() => 0.5 - Math.random());
+export default function Events() {
+  const {isLoading, data, didSucceed} = useFetchAll("Events");
 
   return (
-    <section className="relative psektion bg-slate-200 space-y-5">
-      <Image
+    <section className="relative psektion bg-slate-200">
+      {/* <Image
         src="/waves/wave-gallerytop.png"
         alt="gallery"
         fill
         className="absolute left-0 right-0 -top-8 object-fill w-full max-h-10 rounded-none"
-      />
-      <div className="respons">
+      /> */}
+      <div className="respons space-y-10">
         <div className="sektion md:grid-cols-3">
           <div
             className="hidden md:grid place-content-center"
@@ -41,7 +34,7 @@ export default function Gallery() {
             />
           </div>
           <div>
-            <Title place="" subHeading="Gallery" first="Our Memories" />
+            <Title place="" subHeading="Events" first="Our Memories" />
             <HomeParagraph
               place="center"
               content="Visual snapshots of our vibrant and enriching school activities and events."
@@ -85,14 +78,37 @@ export default function Gallery() {
           )}
         </div> */}
 
-        <div className="sektion2 md:grid-cols-4 gap-3">
-          <EventsCards
-             src="/images/heros/bghero.jpg"
-             title="Event One"
-             desc="Abra adabra"
-          />
+        <div className="sektion2 md:grid-cols-4 gap-3 ">
+          {isLoading
+            ? Array.from({ length: 4 }).map((_, index) => (
+                <SkeletonOne key={index} />
+              ))
+            : didSucceed &&
+              data
+                .slice(0, 3)
+                .map((tukio) => (
+                  <EventsCards
+                    key={tukio.id}
+                    src={tukio.img}
+                    title={tukio.title}
+                    desc={truncateDescription(tukio.desc, 10)}
+                    href={`/events/${tukio.slug}`}
+                    date={tukio.eventDate}
+                    days={`${tukio.days} Days`}
+                  />
+                ))}
+        </div>
+
+        <div className=" flex items-center justify-center ">
+          <Button
+            asChild
+            className="rounded-full text-center text-lg p-6 bg-heartssecondary hover:border hover:border-heartsprimary hover:text-black"
+          >
+            <Link href="/events">View More</Link>
+          </Button>
         </div>
       </div>
+
       <Image
         src="/waves/wave-gallerybottom.png"
         alt="Footer"

@@ -17,26 +17,6 @@ export default function Programs() {
 
    //console.log("Programs displayed here...",data)
 
-  //Querrying the data from database
-  // useEffect(() => {
-
-  //   //function to fetch documents
-  //   const fetchData = async () => {
-  //     //access fetch documents
-  //     const { didSucceed, items } = await fetchDocuments("Programs");
-  //     console.log("data here....", items);
-
-  //     if (didSucceed) {
-  //       setData(items.slice(0, 3)); // Only take the first 3 items
-  //       setLoading(false);
-  //     } else {
-  //       console.error("Failed to fetch data");
-  //     }
-  //   };
-    
-  //   fetchData();
-
-  // }, []);
   
   return (
     <section className="psektion bg-[#ffefe2]">

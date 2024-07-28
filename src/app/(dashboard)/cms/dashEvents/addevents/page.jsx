@@ -13,7 +13,7 @@ import { getSlug } from "@/lib/utils";
 import Image from "next/image";
 
 export default function AddEvent({ params }) {
-  const { actId } = useParams();
+  const { eventId } = useParams();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { authUser } = useAppContext();
@@ -31,19 +31,20 @@ export default function AddEvent({ params }) {
 
   const router = useRouter();
 
-  // Fetch existing post data if actId is provided
+  // Fetch existing post data if eventId is provided
   useEffect(() => {
-    if (actId) {
+    if (eventId) {
       const fetchPost = async () => {
         setIsLoading(true);
         try {
           const { didSucceed, document } = await getSingleDocument(
             "Events",
-            actId
+            eventId
           );
           if (didSucceed) {
             setFormData({
               title: document.title,
+              price: document.price,
               desc: document.desc,
               obj: document.obj,
               duration: document.duration,
@@ -64,7 +65,7 @@ export default function AddEvent({ params }) {
 
       fetchPost();
     }
-  }, [actId]);
+  }, [eventId]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -94,6 +95,7 @@ export default function AddEvent({ params }) {
 
       const eventData = {
         title: formData.title,
+        price:formData.price,
         desc: formData.desc,
         author: authUser?.username || "Anonymous",
         obj: formData.obj,
@@ -107,8 +109,8 @@ export default function AddEvent({ params }) {
       };
 
       let result;
-      if (actId) {
-        result = await updateDocument("Events", actId, eventData);
+      if (eventId) {
+        result = await updateDocument("Events", eventId, eventData);
       } else {
         eventData.createdAt = new Date().toISOString();
         result = await createDocument(eventData, "Events");
@@ -131,7 +133,7 @@ export default function AddEvent({ params }) {
     <main>
       <div className="bg-white shadow-lg rounded-lg p-8 w-full">
         <h1 className="text-2xl font-bold text-center text-slate-700 mb-6">
-          {actId ? "Update Event" : "Create a Event"}
+          {eventId ? "Update Event" : "Create a Event"}
         </h1>
         <form onSubmit={handleEventSave}>
           <div className="mb-4">
@@ -148,6 +150,24 @@ export default function AddEvent({ params }) {
               placeholder="Enter Title Here"
               name="title"
               value={formData.title}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-slate-700 text-sm font-bold mb-2"
+              htmlFor="age"
+            >
+              Price
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="price"
+              type="text"
+              placeholder="Price"
+              name="price"
+              value={formData.price}
               onChange={handleChange}
               required
             />
@@ -295,10 +315,10 @@ export default function AddEvent({ params }) {
               disabled={isLoading}
             >
               {isLoading
-                ? actId
+                ? eventId
                   ? "Updating Event..."
                   : "Creating Event..."
-                : actId
+                : eventId
                 ? "Update Event"
                 : "Create Event"}
             </button>

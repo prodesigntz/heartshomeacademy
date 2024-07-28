@@ -9,6 +9,7 @@ import {
   getDoc,
   query,
   where,
+  arrayUnion,
 } from "firebase/firestore";
 import firebase from "./firebaseInit";
 
@@ -133,6 +134,25 @@ const getSingleDocByFieldNameOrg = async (cln, fieldName, fieldValue) => {
   }
 };
 
+//function is implemented correctly to update the array in the Firestore document.
+const updateDocumentArray = async (
+  collection,
+  docId,
+  arrayField,
+  newElement
+) => {
+  try {
+    const docRef = doc(db, collection, docId);
+    await updateDoc(docRef, {
+      [arrayField]: arrayUnion(newElement),
+    });
+    return { didSucceed: true };
+  } catch (error) {
+    console.error("Error updating document array: ", error);
+    return { didSucceed: false, message: error.message };
+  }
+};
+
 export {
   createDocument,
   fetchDocuments,
@@ -141,4 +161,5 @@ export {
   getSingleDocument,
   getSingleDocByFieldName,
   getSingleDocByFieldNameOrg,
+  updateDocumentArray,
 };

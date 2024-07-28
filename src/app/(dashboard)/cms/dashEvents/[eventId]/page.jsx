@@ -44,6 +44,7 @@ export default function AddEvent({ params }) {
           if (didSucceed) {
             setFormData({
               title: document.title,
+              price: document.price,
               desc: document.desc,
               obj: document.obj,
               duration: document.duration,
@@ -94,6 +95,7 @@ export default function AddEvent({ params }) {
 
       const eventData = {
         title: formData.title,
+        price: document.price,
         desc: formData.desc,
         author: authUser?.username || "Anonymous",
         obj: formData.obj,
@@ -148,6 +150,24 @@ export default function AddEvent({ params }) {
               placeholder="Enter Title Here"
               name="title"
               value={formData.title}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-slate-700 text-sm font-bold mb-2"
+              htmlFor="age"
+            >
+              Price
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="price"
+              type="text"
+              placeholder="Price"
+              name="price"
+              value={formData.price}
               onChange={handleChange}
               required
             />
