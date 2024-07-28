@@ -1,30 +1,48 @@
 "use client";
 
-import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/navigation";
-import firebase from "@/firebase/firebaseInit";
-import { useAppContext } from "@/context/AppContext";
-import { createDocument } from "@/firebase/databaseOperations";
+import React, { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
+import {
+  getSingleDocument,
+  updateDocument,
+} from "@/firebase/databaseOperations";
 import { imageUploadToFirebase } from "@/firebase/fileOperations"; // Import the image upload function
 import Image from "next/image";
 
-export default function AddUser() {
+export default function SingleUser() {
+  const { id } = useParams();
+  const [profileImagePreview, setProfileImagePreview] = useState(null); // State for image preview
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
     username: "",
     role: "",
     profileImage: null,
   });
-  const [profileImagePreview, setProfileImagePreview] = useState(null); // State for image preview
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const { setAuthUser } = useAppContext();
-  const router = useRouter();
 
+  // fetches data by userID
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const { didSucceed, document } = await getSingleDocument("Users", id);
+      if (didSucceed) {
+        setFormData({
+          ...document,
+          profileImage: null, // Reset profileImage to null as we will upload a new one if changed
+        });
+        setProfileImagePreview(document.profileImageUrl);
+      } else {
+        setError("Failed to fetch user data.");
+      }
+    };
+
+    fetchUserData();
+  }, [id]);
+
+  //Handle any changes that will be done on the form
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "profileImage") {
@@ -42,67 +60,45 @@ export default function AddUser() {
     }
   };
 
-  const handleSignup = async (e) => {
+  // Hnadle updates of the changes made
+  const handleUpdate = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
 
-    const {
-      email,
-      password,
-      username,
-      firstName,
-      lastName,
-      role,
-      profileImage,
-    } = formData;
+    const { username, firstName, lastName, role, profileImage } = formData;
 
-    if (
-      !firstName ||
-      !lastName ||
-      !username ||
-      !email ||
-      !password ||
-      !role ||
-      !profileImage
-    ) {
+    if (!firstName || !lastName || !username || !role) {
       setError("Please fill out all fields and upload a profile image.");
       setIsLoading(false);
       return;
     }
 
     try {
-      const authUserCredential = await createUserWithEmailAndPassword(
-        firebase.auth,
-        email,
-        password
-      );
-      const authUser = authUserCredential.user;
+      let profileImageUrl = formData.profileImageUrl;
 
-      // Upload profile image to Firebase Storage
-      const profileImageUrl = await imageUploadToFirebase(
-        profileImage,
-        "profileImages"
-      );
+      // Upload profile image to Firebase Storage if a new one is selected
+      if (profileImage) {
+        profileImageUrl = await imageUploadToFirebase(
+          profileImage,
+          "profileImages"
+        );
+      }
 
-      const userData = {
+      const updatedData = {
         username,
         firstName,
         lastName,
-        email: authUser.email,
         role,
-        createdAt: new Date(),
-        userID: authUser.uid,
-        profileImageUrl, // Add profileImageUrl to user data
+        profileImageUrl,
       };
 
-      const { didSucceed, docId } = await createDocument(userData, "Users");
+      const { didSucceed } = await updateDocument("Users", id, updatedData);
 
       if (didSucceed) {
-        setAuthUser({ ...userData, id: docId });
         router.push("/cms/dashUsers");
       } else {
-        setError("Failed to create user document in Firestore.");
+        setError("Failed to update user data in Firestore.");
       }
     } catch (error) {
       setError(error.message);
@@ -114,9 +110,9 @@ export default function AddUser() {
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 w-full">
       <h1 className="text-2xl font-bold text-center text-slate-700 mb-6">
-        Add User
+        Edit User
       </h1>
-      <form onSubmit={handleSignup}>
+      <form onSubmit={handleUpdate}>
         <div className="mb-4">
           <label
             className="block text-slate-700 text-sm font-bold mb-2"
@@ -171,23 +167,6 @@ export default function AddUser() {
         <div className="mb-4">
           <label
             className="block text-slate-700 text-sm font-bold mb-2"
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-slate-700 text-sm font-bold mb-2"
             htmlFor="role"
           >
             Role
@@ -210,24 +189,7 @@ export default function AddUser() {
             <option value="parent">Parent</option>
           </select>
         </div>
-        <div className="mb-6">
-          <label
-            className="block text-slate-700 text-sm font-bold mb-2"
-            htmlFor="password"
-          >
-            Password
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-6">
+        <div className="mb-4">
           <label
             className="block text-slate-700 text-sm font-bold mb-2"
             htmlFor="profileImage"
@@ -241,7 +203,6 @@ export default function AddUser() {
             name="profileImage"
             accept="image/*"
             onChange={handleChange}
-            required
           />
           {profileImagePreview && (
             <Image
@@ -266,7 +227,7 @@ export default function AddUser() {
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? "Adding User..." : "Add User"}
+            {isLoading ? "Updating User..." : "Update User"}
           </button>
         </div>
       </form>

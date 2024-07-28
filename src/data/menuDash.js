@@ -192,21 +192,21 @@ export const menuDashItem = [
         path: "/cms/dashUsers/addUsers",
         icon: "",
       },
-      {
-        name: "Parents",
-        path: "/cms/dashUsers/parents/allParents",
-        icon: "",
-      },
-      {
-        name: "Staffs",
-        path: "/cms/dashUsers/staff/allStaff",
-        icon: "",
-      },
-      {
-        name: "Students",
-        path: "/cms/dashUsers/students/allStudents",
-        icon: "",
-      },
+      // {
+      //   name: "Parents",
+      //   path: "/cms/dashUsers/parents/allParents",
+      //   icon: "",
+      // },
+      // {
+      //   name: "Staffs",
+      //   path: "/cms/dashUsers/staff/allStaff",
+      //   icon: "",
+      // },
+      // {
+      //   name: "Students",
+      //   path: "/cms/dashUsers/students/allStudents",
+      //   icon: "",
+      // },
     ],
   },
 

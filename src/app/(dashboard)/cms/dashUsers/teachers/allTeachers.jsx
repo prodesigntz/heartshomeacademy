@@ -13,7 +13,6 @@ import {
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
-import { IoDuplicate } from "react-icons/io5";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { fetchDocuments, deleteDocument } from "@/firebase/databaseOperations";
@@ -24,13 +23,16 @@ export default function AllTeachers() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { didSucceed, items } = await fetchDocuments("Blogpost");
-      //console.log("Items:...", items)
+      const { didSucceed, items } = await fetchDocuments("Users");
+     //console.log("Items:...", items)
 
       if (didSucceed) {
-        setData(items);
+        // Filter users to only include teachers
+        const teachers = items.filter((user) => user.role === "teacher");
+        setData(teachers);
+        console.log("teachers:...", teachers.createAt)
       } else {
-        console.error("Failed to fetch blog posts");
+        console.error("Failed to fetch teachers");
       }
     };
 
@@ -39,31 +41,34 @@ export default function AllTeachers() {
 
 
   const handleDelete = async (postId) => {
-    const { didSucceed } = await deleteDocument("Blogpost", postId);
+    const { didSucceed } = await deleteDocument("Users", postId);
     if (didSucceed) {
       setData((prevData) => prevData.filter((post) => post.id !== postId));
     } else {
-      console.error("Failed to delete post");
+      console.error("Failed to delete Teacher");
     }
   };
 
-  
+  const formatDate = (timestamp) => {
+    if (!timestamp) return "N/A"; // Handle undefined or null timestamp
+    const date = new Date(timestamp.seconds * 1000); // Convert Firestore timestamp to JS Date
+    return date.toLocaleString(); // Format the date
+  };
 
   
   return (
     <main className="space-y-10">
-    
       <section>
         <Table className="">
-          <TableCaption>List of Blog Posts</TableCaption>
+          <TableCaption>List of Teachers</TableCaption>
 
           <TableHeader>
             <TableRow>
               <TableHead>Sno.</TableHead>
               <TableHead>Image</TableHead>
-              <TableHead>Title</TableHead>
-              <TableHead>Author</TableHead>
-              <TableHead>Category</TableHead>
+              <TableHead>Full Name</TableHead>
+              <TableHead>Username</TableHead>
+              <TableHead>CreatedAt</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -73,9 +78,9 @@ export default function AllTeachers() {
               <TableRow key={item.id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>
-                  {item.img && (
+                  {item.profileImageUrl && (
                     <Image
-                      src={item.img}
+                      src={item.profileImageUrl}
                       alt="blog"
                       width={80}
                       height={60}
@@ -89,17 +94,21 @@ export default function AllTeachers() {
                   )}
                 </TableCell>
                 <TableCell>
-                  <h3 className="text-base">{item.title}</h3>
+                  <h3 className="text-base space-x-2">
+                    <span> {item.firstName}</span> <span> {item.lastName}</span>
+                  </h3>
                 </TableCell>
                 <TableCell>
-                  <h3>{item.author}</h3>
+                  <h3>{item.username}</h3>
                 </TableCell>
                 <TableCell>
-                  <h3>{item.category}</h3>
+                  <h3>{formatDate(item.createdAt)}</h3>
                 </TableCell>
                 <TableCell className="items-center space-x-1">
                   <Button
-                    onClick={() => router.push(`/cms/dashBlog/${item.id}`)}
+                    onClick={() =>
+                      router.push(`/cms/dashUsers/${item.id}`)
+                    }
                     className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
                   >
                     <FaEdit />
@@ -110,7 +119,7 @@ export default function AllTeachers() {
                   >
                     <FaTrash />
                   </Button>
-                  <Button
+                  {/* <Button
                     asChild
                     className="bg-heartsprimary text-white hover:bg-heartsprimary"
                   >
@@ -121,7 +130,7 @@ export default function AllTeachers() {
                     >
                       <FaEye />
                     </Link>
-                  </Button>
+                  </Button> */}
                 </TableCell>
               </TableRow>
             ))}
