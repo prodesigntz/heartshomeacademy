@@ -23,13 +23,13 @@ export default function Page() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { didSucceed, items } = await fetchDocuments("Programs");
-      //console.log("Items:...", items)
+      const { didSucceed, items } = await fetchDocuments("Enrollments");
+      //console.log("Items:...", items);
 
       if (didSucceed) {
         setData(items);
       } else {
-        console.error("Failed to fetch programs posts");
+        console.error("Failed to fetch Enrollments posts");
       }
     };
 
@@ -37,7 +37,7 @@ export default function Page() {
   }, []);
 
   const handleDelete = async (progId) => {
-    const { didSucceed } = await deleteDocument("Programs", progId);
+    const { didSucceed } = await deleteDocument("Enrollments", progId);
     if (didSucceed) {
       setData((prevData) => prevData.filter((post) => post.id !== progId));
     } else {
@@ -55,7 +55,9 @@ export default function Page() {
             variant="hearts-primary"
             className="rounded-full bg-heartsprimary text-white"
           >
-            <Link href="/cms/dashEnrollment/addEnrollment">Create Enrrollment</Link>
+            <Link href="/cms/dashEnrollment/addEnrollment">
+              Create Enrrollment
+            </Link>
           </Button>
         </div>
       </section>
@@ -67,9 +69,9 @@ export default function Page() {
             <TableRow>
               <TableHead>Sno.</TableHead>
               <TableHead>Image</TableHead>
-              <TableHead>Title</TableHead>
-              <TableHead>Author</TableHead>
-              <TableHead>Age</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Gender</TableHead>
+              <TableHead>Birth Date</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -95,17 +97,20 @@ export default function Page() {
                   )}
                 </TableCell>
                 <TableCell>
-                  <h3 className="text-base">{item.title}</h3>
+                  <h3 className="text-base">{item.childFullName}</h3>
                 </TableCell>
                 <TableCell>
-                  <h3>{item.author}</h3>
+                  <h3>{item.gender}</h3>
                 </TableCell>
                 <TableCell>
-                  <h3>{item.age}</h3>
+                  <h3>{item.dob}</h3>
                 </TableCell>
+              
                 <TableCell className="items-center space-x-1">
                   <Button
-                    onClick={() => router.push(`/cms/dashEnrollment/${item.id}`)}
+                    onClick={() =>
+                      router.push(`/cms/dashEnrollment/${item.id}`)
+                    }
                     className="bg-heartsprimary text-white hover:bg-heartsprimary cursor-pointer"
                   >
                     <FaEdit />
@@ -116,18 +121,18 @@ export default function Page() {
                   >
                     <FaTrash />
                   </Button>
-                  <Button
+                  {/* <Button
                     asChild
                     className="bg-heartsprimary text-white hover:bg-heartsprimary"
                   >
                     <Link
-                      href={`/dashInquiry/${item.id}`}
-                      target="_blank"
+                      href={`/dashEnrollment//${item.id}`}
+                      target=""
                       rel="noopener noreferrer"
                     >
                       <FaEye />
                     </Link>
-                  </Button>
+                  </Button> */}
                 </TableCell>
               </TableRow>
             ))}
