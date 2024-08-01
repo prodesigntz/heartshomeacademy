@@ -7,10 +7,49 @@ import SkeletonOne from "../skeletonOne";
 import { truncateDescription } from "@/lib/utils";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 export default function Events() {
   const {isLoading, data, didSucceed} = useFetchAll("Events");
+   const settings = {
+     dots: true,
+     //  autoplay: true,
+     speed: 2000,
+     autoplaySpeed: 2000,
+     //  infinite: true,
+     slidesToShow: 4,
+     slidesToScroll: 4,
+     initialSlide: 0,
 
+     responsive: [
+       {
+         breakpoint: 1024,
+         settings: {
+           slidesToShow: 3,
+           slidesToScroll: 3,
+           //infinite: true,
+           dots: true,
+         },
+       },
+       {
+         breakpoint: 600,
+         settings: {
+           slidesToShow: 2,
+           slidesToScroll: 2,
+           initialSlide: 2,
+         },
+       },
+       {
+         breakpoint: 480,
+         settings: {
+           slidesToShow: 1,
+           slidesToScroll: 1,
+         },
+       },
+     ],
+   };
   return (
     <section className="relative psektion bg-slate-200">
       {/* <Image
@@ -78,7 +117,8 @@ export default function Events() {
           )}
         </div> */}
 
-        <div className="sektion2 md:grid-cols-4 gap-3 ">
+        <div className="slider-container">
+            <Slider {...settings}>
           {isLoading
             ? Array.from({ length: 4 }).map((_, index) => (
                 <SkeletonOne key={index} />
@@ -96,7 +136,7 @@ export default function Events() {
                     date={tukio.eventDate}
                     days={`${tukio.days} Days`}
                   />
-                ))}
+                ))}</Slider>
         </div>
 
         <div className=" flex items-center justify-center ">
