@@ -185,7 +185,18 @@ export default function Contact() {
       {/* map section */}
       <section className="psektion respons sektion">
         <Title place="center" first="Find Us Here" />
-        <GoogleMapComponent />
+            <div className="content content-center overflow-hidden">
+        
+
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.0480535287625!2d35.66813497688527!3d-3.3383002413160976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18345117446eab6d%3A0xf3fb7f8293651d5e!2sNapanda%20Tours%20and%20Safaris!5e0!3m2!1sen!2stz!4v1724867037726!5m2!1sen!2stz"
+              width="1000"
+              height="450"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
       </section>
     </main>
   );
