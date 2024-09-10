@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative psektion text-white bg-[url('/images/heros/bghero.jpg')] bg-cover bg-center  bg-slate-700 bg-blend-overlay bg-no-repeat">
+    <section className="relative psektion text-white bg-[url('/images/heros/bghero.jpg')] bg-cover bg-center  bg-slate-700/30 bg-blend-overlay bg-no-repeat">
       <div className="respons sektion md:grid-cols-5 md:py-10">
         <div></div>
         <div className="col-span-3">
