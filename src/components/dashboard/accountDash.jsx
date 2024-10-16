@@ -23,14 +23,15 @@ export function AccountDash() {
     const router = useRouter();
     const { unSetAuthUser } = useAppContext();
 
-    const handleSignOut = async () => {
-      try {
-        await signOut(firebase.auth);
-        unSetAuthUser(); // Clear the authUser context
-        router.push("/login");
-      } catch (error) {
-        console.error("Sign out error:", error.message);
-      }
+    const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      // Redirect or do something after successful logout
+      router.replace("/login");
+    } catch (error) {
+      window.alert("Logout failed");
+    }
+  };
     };
   return (
     <DropdownMenu>

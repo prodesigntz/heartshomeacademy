@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import Accomplishment from '@/components/content/accomplishment'
-import Programs from '@/components/content/programs'
-import Team from '@/components/team';
-import { HomeParagraph, Title } from '@/components/texties';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react'
-import { FaShieldAlt } from 'react-icons/fa';
-import { FaBaby, FaPuzzlePiece } from 'react-icons/fa6';
+import Accomplishment from "@/components/content/accomplishment";
+import Programs from "@/components/content/programs";
+import Team from "@/components/team";
+import { HomeParagraph, Title } from "@/components/texties";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { FaShieldAlt } from "react-icons/fa";
+import { FaBaby, FaPuzzlePiece } from "react-icons/fa6";
 
 export default function About() {
   return (
@@ -70,7 +70,7 @@ export default function About() {
             <div className="flex flex-col space-y-3">
               <div className="flex items-center space-x-5">
                 {/* <div>
-                 <h2 className="text-2xl fredoka">1</h2> 
+                 <h2 className="text-2xl fredoka">1</h2>
                 </div> */}
                 <div className="space-y-5">
                   <FaBaby className="text-3xl md:text-6xl" />
@@ -93,7 +93,7 @@ export default function About() {
             <div className="flex flex-col space-y-3">
               <div className="flex items-center space-x-5">
                 {/* <div>
-                 <h2 className="text-2xl fredoka">1</h2> 
+                 <h2 className="text-2xl fredoka">1</h2>
                 </div> */}
                 <div className="space-y-5">
                   <FaPuzzlePiece className="text-3xl md:text-6xl" />
@@ -116,7 +116,7 @@ export default function About() {
             <div className="flex flex-col space-y-3">
               <div className="flex items-center space-x-5">
                 {/* <div>
-                 <h2 className="text-2xl fredoka">1</h2> 
+                 <h2 className="text-2xl fredoka">1</h2>
                 </div> */}
                 <div className="space-y-5">
                   <FaShieldAlt className="text-3xl md:text-6xl" />

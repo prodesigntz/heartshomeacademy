@@ -4,14 +4,7 @@ import SideBar from "@/components/dashboard/sideBar";
 import DashboardHeader from "@/components/dashboard/dashboardHeader";
 import PageWrapper from "@/components/dashboard/pageWrapper";
 
-// Fonts inputs
-const inter = Inter({ subsets: ["latin"] });
 
-const fredoka_init = Fredoka({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-fredoka",
-});
 
 export const metadata = {
   title: "Admin Hearts Home Academy",
