@@ -187,9 +187,8 @@ export default function Contact() {
         <Title place="center" first="Find Us Here" />
             <div className="content content-center overflow-hidden">
         
-
             <iframe
-             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d187.13557444210164!2d36.65601145876386!3d-3.3591189268695127!2m3!1f180!2f0!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x18371c540881652f%3A0x5f2fc7fad8b048d1!2sArusha%20meat%20company!5e1!3m2!1sen!2stz!4v1726048568963!5m2!1sen!2stz"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d187.13557444210164!2d36.65601145876386!3d-3.3591189268695127!2m3!1f180!2f0!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x18371c540881652f%3A0x5f2fc7fad8b048d1!2sArusha%20meat%20company!5e1!3m2!1sen!2stz!4v1726048568963!5m2!1sen!2stz"
               width="1600"
               height="450"
               allowfullscreen=""

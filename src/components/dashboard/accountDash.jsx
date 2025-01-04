@@ -32,7 +32,7 @@ export function AccountDash() {
       window.alert("Logout failed");
     }
   };
-    };
+   
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -53,14 +53,12 @@ export function AccountDash() {
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Link href="" className="flex items-center">
-              {" "}
               <CreditCard className="mr-2 h-4 w-4" />
               <span>Billing</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Link href="" className="flex items-center">
-              {" "}
               <Settings className="mr-2 h-4 w-4" />
               <span>Setting</span>
             </Link>
@@ -69,7 +67,7 @@ export function AccountDash() {
 
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={handleSignOut}
+          onClick={handleLogout}
           className="flex items-center cursor-pointer"
         >
           <LogOut className="mr-2 h-4 w-4" />

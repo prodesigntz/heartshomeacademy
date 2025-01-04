@@ -30,7 +30,7 @@ export default function Intro() {
           />
           <HomeParagraph
             place="start"
-            content="At Hearts Home Academy, we create a safe and nurturing environment where children thrive through engaging and holistic education. We emphasize creativity, curiosity, and comprehensive development, laying a strong foundation for lifelong learning and success."
+            content="Hearts Home Academy Preschool, nestled in Arusha, Tanzania is a beacon of quality education. Our institution welcomes local and international students, fostering a rich tapesry of cultures. With a unique, one of its kind concept, Hearts Home Academy is a place where children learn, socialize and grow while reading and listening. Here they move from self-absorption to growing social awareness."
           />
           <div className=" flex items-center space-x-5">
             <Button

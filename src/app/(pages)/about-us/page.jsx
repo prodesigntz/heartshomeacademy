@@ -38,7 +38,7 @@ export default function About() {
           />
           <HomeParagraph
             place="start"
-            content="Highly qualified educators providing personalized and engaging learning experiences for young minds."
+            content="Hearts Home Academy Preschool, nestled in Arusha, Tanzania is a beacon of quality education. Our institution welcomes local and international students, fostering a rich tapesry of cultures. With a unique, one of its kind concept, Hearts Home Academy is a place where children learn, socialize and grow while reading and listening. Here they move from self-absorption to growing social awareness."
           />
           <div className=" flex items-center space-x-5">
             <Button
