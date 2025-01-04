@@ -5,6 +5,7 @@ import { HomeParagraph, Title } from "@/components/texties";
 import { FaEnvelope, FaMap, FaPhoneFlip } from "react-icons/fa6";
 import { createDocument } from "@/firebase/databaseOperations";
 import GoogleMapComponent from "@/components/GoogleMapComponent";
+import Link from "next/link";
 
 export default function Contact() {
   const [error, setError] = useState(null);
@@ -65,28 +66,35 @@ export default function Contact() {
           <HomeParagraph
             place="start"
             content=" 
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis saepe incidunt perspiciatis minima nam molestiae, ex sapiente nostrum a repellat alias dolores qui facere, rerum sequi impedit optio, minus aut. "
+            We look forward to welcoming your child to a joyful journey of learning and discovery at Hearts Home Academy."
           />
           <div className="sektion ">
             <div className="flex items-center space-x-2">
               <FaEnvelope className="text-2xl md:text-3xl" />
               <div className="grid">
-                <h2> Email</h2>
-                <p>info@heartshomeacademy.sc.tz</p>
+                <h2 className="font-bold">Email</h2>
+                <Link href="mailto:info@heartshomeacademy.sc.tz">
+                  info@heartshomeacademy.sc.tz
+                </Link>
+                <Link href="mailto:hearts.home.academy@gmail.com">
+                  hearts.home.academy@gmail.com
+                </Link>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <FaPhoneFlip className="text-2xl  md:text-3xl" />
               <div className="grid">
-                <h2> Call</h2>
-                <p>+255 755 902 861</p>
+                <h2 className="font-bold"> Call</h2>
+                <Link href="tel:+255 755 902 861">+255 755 902 861</Link>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <FaMap className="text-2xl md:text-3xl" />
               <div className="grid">
-                <h2>Location</h2>
-                <p>Sakina, Arusha</p>
+                <h2 className="font-bold">Location</h2>
+                <p>
+                  P.O.Box 16446, <br /> Sakina, Olosiva, Arusha, Tanzania
+                </p>
               </div>
             </div>
           </div>
@@ -185,17 +193,16 @@ export default function Contact() {
       {/* map section */}
       <section className="psektion respons sektion">
         <Title place="center" first="Find Us Here" />
-            <div className="content content-center overflow-hidden">
-        
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d187.13557444210164!2d36.65601145876386!3d-3.3591189268695127!2m3!1f180!2f0!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x18371c540881652f%3A0x5f2fc7fad8b048d1!2sArusha%20meat%20company!5e1!3m2!1sen!2stz!4v1726048568963!5m2!1sen!2stz"
-              width="1600"
-              height="450"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
+        <div className="content content-center overflow-hidden">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d187.13557444210164!2d36.65601145876386!3d-3.3591189268695127!2m3!1f180!2f0!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x18371c540881652f%3A0x5f2fc7fad8b048d1!2sArusha%20meat%20company!5e1!3m2!1sen!2stz!4v1726048568963!5m2!1sen!2stz"
+            width="1600"
+            height="450"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </section>
     </main>
   );

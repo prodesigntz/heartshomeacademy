@@ -76,7 +76,7 @@ export default function Events() {
             <Title place="" subHeading="Events" first="Our Memories" />
             <HomeParagraph
               place="center"
-              content="Visual snapshots of our vibrant and enriching school activities and events."
+              content="At Hearts Home Academy, we believe in creating memorable experiences that enrich our children’s learning beyond the classroom."
             />
           </div>
           <div
@@ -118,25 +118,26 @@ export default function Events() {
         </div> */}
 
         <div className="slider-container">
-            <Slider {...settings}>
-          {isLoading
-            ? Array.from({ length: 4 }).map((_, index) => (
-                <SkeletonOne key={index} />
-              ))
-            : didSucceed &&
-              data
-                .slice(0, 3)
-                .map((tukio) => (
-                  <EventsCards
-                    key={tukio.id}
-                    src={tukio.img}
-                    title={tukio.title}
-                    desc={truncateDescription(tukio.desc, 10)}
-                    href={`/events/${tukio.slug}`}
-                    date={tukio.eventDate}
-                    days={`${tukio.days} Days`}
-                  />
-                ))}</Slider>
+          <Slider {...settings}>
+            {isLoading
+              ? Array.from({ length: 4 }).map((_, index) => (
+                  <SkeletonOne key={index} />
+                ))
+              : didSucceed &&
+                data
+                  .slice(0, 3)
+                  .map((tukio) => (
+                    <EventsCards
+                      key={tukio.id}
+                      src={tukio.img}
+                      title={tukio.title}
+                      desc={truncateDescription(tukio.desc, 10)}
+                      href={`/events/${tukio.slug}`}
+                      date={tukio.eventDate}
+                      days={`${tukio.days} Days`}
+                    />
+                  ))}
+          </Slider>
         </div>
 
         <div className=" flex items-center justify-center ">

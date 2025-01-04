@@ -77,7 +77,8 @@ export default function Facilities() {
           />
           <HomeParagraph
             place="center"
-            content="A vibrant and expansive campus designed for active learning and exploration."
+            content="At Hearts Home Academy, we are proud to offer a variety of modern facilities designed to support the growth, learning, and well-being of our children."
+            // content="A vibrant and expansive campus designed for active learning and exploration."
           />
         </div>
 
