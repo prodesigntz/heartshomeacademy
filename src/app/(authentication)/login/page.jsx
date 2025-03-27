@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, getIdToken } from "firebase/auth";
+import { validatePassword } from "@/lib/auth";
 import firebase from "@/firebase/firebaseInit";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
@@ -35,6 +36,21 @@ export default function LoginPage() {
     const now = Date.now();
     if (loginAttempts >= 5 && now - lastAttemptTime < 300000) { // 5 minutes cooldown
       setError("Too many login attempts. Please try again in a few minutes.");
+      setIsLoading(false);
+      return;
+    }
+
+    // Basic form validation
+    if (!email || !password) {
+      setError("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
+
+    // Password strength validation
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      setError(passwordError);
       setIsLoading(false);
       return;
     }
@@ -101,6 +117,9 @@ export default function LoginPage() {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 leading-tight focus:outline-none focus:shadow-outline"
+              aria-label="Email"
+              aria-required="true"
+              autoComplete="email"
               id="email"
               type="email"
               placeholder="Email"
@@ -118,6 +137,9 @@ export default function LoginPage() {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              aria-label="Password"
+              aria-required="true"
+              autoComplete="current-password"
               id="password"
               type="password"
               placeholder="********"
@@ -132,6 +154,7 @@ export default function LoginPage() {
               className="bg-heartsprimary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
               disabled={isLoading}
+              aria-busy={isLoading}
             >
               {isLoading ? "Signing In..." : "Sign In"}
             </button>
