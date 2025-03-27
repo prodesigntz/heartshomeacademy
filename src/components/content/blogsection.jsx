@@ -15,11 +15,17 @@ export default function BlogSection() {
 
      const settings = {
        dots: true,
-       speed: 2000,
-       autoplaySpeed: 2000,
+       autoplay: true,
+       speed: 1000,
+       autoplaySpeed: 4000,
+       infinite: true,
        slidesToShow: 3,
-       slidesToScroll: 3,
+       slidesToScroll: 1,
        initialSlide: 0,
+       arrows: true,
+       accessibility: true,
+       pauseOnHover: true,
+       pauseOnFocus: true,
 
        responsive: [
          {

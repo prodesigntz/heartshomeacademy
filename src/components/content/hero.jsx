@@ -44,14 +44,8 @@ export default function Hero() {
         <div></div>
       </div>
 
-      {/* clouds */}
-
-      {/* <Image
-        src="/images/fontfed/wavecloud.png"
-        alt="blog"
-        fill
-        className="absolute  bg-red-500 bottom-5 object-fill w-full max-h-20 rounded-none"
-      /> */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" aria-hidden="true" />
     </section>
   );
 }

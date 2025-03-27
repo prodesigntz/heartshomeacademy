@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import firebase from "@/firebase/firebaseInit"; // Adjust the path if necessary
+import React, { useState, useEffect } from "react";
+import { signInWithEmailAndPassword, getIdToken } from "firebase/auth";
+import firebase from "@/firebase/firebaseInit";
 import { useRouter } from "next/navigation";
-import { useAppContext } from "@/context/AppContext";
+import { useAuthContext } from "@/context/AuthContext";
 import { getSingleDocByFieldName } from "@/firebase/databaseOperations";
 
 export default function LoginPage() {
@@ -14,7 +14,9 @@ export default function LoginPage() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { setAuthUser } = useAppContext();
+  const { setAuthUser, setToken } = useAuthContext();
+  const [loginAttempts, setLoginAttempts] = useState(0);
+  const [lastAttemptTime, setLastAttemptTime] = useState(0);
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -28,6 +30,14 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
+
+    // Rate limiting check
+    const now = Date.now();
+    if (loginAttempts >= 5 && now - lastAttemptTime < 300000) { // 5 minutes cooldown
+      setError("Too many login attempts. Please try again in a few minutes.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const authUserCredential = await signInWithEmailAndPassword(
@@ -44,17 +54,32 @@ export default function LoginPage() {
       );
 
       if (userAuthData.didSucceed) {
-        // Update context with user data
+        // Get the initial ID token
+        const idToken = await getIdToken(authUserData);
+        
+        // Update context with user data and token
         setAuthUser({ ...userAuthData.document, id: authUserData.uid });
-        router.push("/cms"); // Replace with your dashboard route
+        setToken(idToken);
+        
+        // Redirect to dashboard
+        router.push("/cms");
       } else {
         setError("User does not exist.");
       }
     } catch (error) {
-      console.error("Sign-in error:", error.message);
-      setError(
-        "Failed to sign in. Please check your credentials and try again."
-      );
+      console.error("Sign-in error:", error.code, error.message);
+      setLoginAttempts(prev => prev + 1);
+      setLastAttemptTime(Date.now());
+      
+      const errorMessage = {
+        "auth/user-not-found": "No account found with this email.",
+        "auth/wrong-password": "Invalid password.",
+        "auth/invalid-email": "Invalid email format.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+        "auth/network-request-failed": "Network error. Please check your connection."
+      }[error.code] || "Failed to sign in. Please try again.";
+      
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

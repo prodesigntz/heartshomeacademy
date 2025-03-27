@@ -19,14 +19,17 @@ export default function Activities() {
   //for slider
   const settings = {
     dots: true,
-    //  autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 2000,
-    //  infinite: true,
+    autoplay: true,
+    speed: 1000,
+    autoplaySpeed: 4000,
+    infinite: true,
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     initialSlide: 0,
-    arrows: false,
+    arrows: true,
+    accessibility: true,
+    pauseOnHover: true,
+    pauseOnFocus: true,
 
     responsive: [
       {

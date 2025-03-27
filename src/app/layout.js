@@ -1,6 +1,6 @@
 import { Fredoka, Inter } from "next/font/google";
 import "./globals.css";
-import { AppContextProvider } from "@/context/AppContext";
+import { AuthContextProvider } from "@/context/AuthContext";
 
 // Fonts inputs
 const inter = Inter({ subsets: ["latin"] });
@@ -22,11 +22,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} ${fredoka_init.variable}`}
       >
-        <AppContextProvider>
+        <AuthContextProvider>
           {/* <NavBar/> */}
           {children}
           {/* <Footer/>  */}
-        </AppContextProvider>
+        </AuthContextProvider>
       </body>
     </html>
   );

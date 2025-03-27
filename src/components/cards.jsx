@@ -1,18 +1,43 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { truncateDescription } from "@/lib/utils";
+import { isEventPast, truncateDescription } from "@/lib/utils";
+import PropTypes from "prop-types";
 
-export const ActivitiesCards=({ src, title,href, desc })=> {
+const ImageWithFallback = ({ src, alt, ...props }) => {
+  const [error, setError] = useState(false);
+
+  return (
+    <Image
+      src={error ? "/images/placeholder.svg" : src}
+      alt={alt}
+      {...props}
+      onError={() => setError(true)}
+    />
+  );
+};
+
+ImageWithFallback.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired
+};
+
+
+export const ActivitiesCards = ({ src, title, href, desc }) => {
+  if (!src || !title || !href) {
+    console.error("Missing required props in ActivitiesCards");
+    return null;
+  }
   return (
     <div className="shadow-md flex flex-col p-5 space-y-5 text-center">
       <div>
-        <Image
+        <ImageWithFallback
           src={src}
-          alt="activities"
+          alt={title || "activities"}
           width={1000}
           height={240}
+          loading="lazy"
           style={{
             maxWidth: "100%",
             height: "220px",
@@ -31,15 +56,20 @@ export const ActivitiesCards=({ src, title,href, desc })=> {
   );
 }
 
-export const FacilitiesCards=({ src, title, desc })=> {
+export const FacilitiesCards = ({ src, title, desc }) => {
+  if (!src || !title) {
+    console.error("Missing required props in FacilitiesCards");
+    return null;
+  }
   return (
     <div className="shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 hover:rounded-md duration-300 ">
       <div>
-        <Image
+        <ImageWithFallback
           src={src}
-          alt="blog"
+          alt={title || "facility"}
           width={1000}
           height={240}
+          loading="lazy"
           style={{
             maxWidth: "100%",
             height: "220px",
@@ -49,7 +79,7 @@ export const FacilitiesCards=({ src, title, desc })=> {
         />
       </div>
       <div>
-        <h3 className="font-semibold fredoka text-xl ">{title}</h3>
+        <h3 className="font-semibold fredoka text-xl "><Link href={href}>{title}</Link></h3>
       </div>
       <div>
         <p className="">
@@ -61,14 +91,19 @@ export const FacilitiesCards=({ src, title, desc })=> {
 }
 
 export const TeamCards = ({ src, title, desc }) => {
+  if (!src || !title) {
+    console.error("Missing required props in TeamCards");
+    return null;
+  }
   return (
     <div className="shadow-md flex flex-col p-5 space-y-5 text-center hover:text-white hover:bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 hover:rounded-md duration-300 ">
       <div>
-        <Image
+        <ImageWithFallback
           src={src}
-          alt="blog"
+          alt={title || "facility"}
           width={1000}
           height={240}
+          loading="lazy"
           style={{
             maxWidth: "100%",
             height: "220px",
@@ -78,7 +113,7 @@ export const TeamCards = ({ src, title, desc }) => {
         />
       </div>
       <div>
-        <h3 className="font-semibold fredoka text-xl ">{title}</h3>
+        <h3 className="font-semibold fredoka text-xl "><Link href={href}>{title}</Link></h3>
       </div>
       <div>
         <p className="">{desc}</p>
@@ -88,15 +123,20 @@ export const TeamCards = ({ src, title, desc }) => {
 };
 
 
-export const BlogCards = ({ href,src,shortDesc, title }) => {
+export const BlogCards = ({ href, src, shortDesc, title }) => {
+  if (!src || !title || !href) {
+    console.error("Missing required props in BlogCards");
+    return null;
+  }
   return (
     <div className="rounded-3xl p-10 bg-white shadow-md">
       <div className="flex flex-col space-y-3">
-        <Image
+        <ImageWithFallback
           src={src}
-          alt="blog"
+          alt={title || "facility"}
           width={1000}
           height={240}
+          loading="lazy"
           style={{
             maxWidth: "100%",
             height: "220px",
@@ -115,12 +155,16 @@ export const BlogCards = ({ href,src,shortDesc, title }) => {
 };
 
 export const ProgramsCard = ({src, alt, title, age, desc, href}) => {
+  if (!src || !title || !href) {
+    console.error("Missing required props in ProgramsCard");
+    return null;
+  }
   return (
     <Link href={href} className="flex items-center justify-between rounded-3xl p-10 bg-white shadow-md space-x-5">
       <div className="">
-        <Image
+        <ImageWithFallback
           src={src}
-          alt={alt}
+          alt={alt || title || "program"}
           width={280}
           height={260}
           style={{
@@ -140,15 +184,23 @@ export const ProgramsCard = ({src, alt, title, age, desc, href}) => {
   );
 }
 
-export const EventsCards = ({ src, title, desc, href ,date,days}) => {
+export const EventsCards = ({ src, title, desc, href, date, days }) => {
+  if (!src || !title || !href || !date) {
+    console.error("Missing required props in EventsCards");
+    return null;
+  }
+
+  const isPast = isEventPast(date);
+
   return (
     <div className="shadow-md flex flex-col p-5 space-y-5 text-center text-white bg-heartssecondary transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 rounded-md duration-300 ">
       <div>
-        <Image
+        <ImageWithFallback
           src={src}
-          alt="blog"
+          alt={title || "facility"}
           width={1000}
           height={240}
+          loading="lazy"
           style={{
             maxWidth: "100%",
             height: "220px",
@@ -162,17 +214,23 @@ export const EventsCards = ({ src, title, desc, href ,date,days}) => {
         <h5>{days}</h5>
       </div>
       <div>
-        <h3 className="font-semibold fredoka text-xl ">{title}</h3>
+        <h3 className="font-semibold fredoka text-xl "><Link href={href}>{title}</Link></h3>
       </div>
       <div>
         <p className="">{desc}</p>
       </div>
-      <Button
-        asChild
-        className="rounded-full text-center text-lg p-6 bg-heartsprimary hover:border hover:border-heartsprimary hover:text-black"
-      >
-        <Link href={href}>Attend Event</Link>
-      </Button>
+      {isPast ? (
+        <div className="bg-gray-500/50 rounded-full py-3 px-6 text-lg">
+          Past Event
+        </div>
+      ) : (
+        <Button
+          asChild
+          className="rounded-full text-center text-lg p-6 bg-heartsprimary hover:border hover:border-heartsprimary hover:text-black"
+        >
+          <Link href={href}>Attend Event</Link>
+        </Button>
+      )}
     </div>
   );
 };

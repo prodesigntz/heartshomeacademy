@@ -22,3 +22,14 @@ export function truncateDescription  (desc, wordLimit) {
       (words.length > wordLimit ? "..." : "")
     );
   };
+
+export function isEventPast(eventDate) {
+  if (!eventDate) return false;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset time to start of day
+  
+  const eventDateTime = new Date(eventDate);
+  eventDateTime.setHours(0, 0, 0, 0); // Reset time to start of day
+  
+  return eventDateTime < today;
+}
